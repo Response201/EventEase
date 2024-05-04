@@ -1,0 +1,69 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 6%;
+    right: 7%;
+    text-transform: uppercase;
+    position: absolute;
+    z-index: 1000;
+    font-family: "Freeman", sans-serif;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0 auto;
+    display: flex;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 20px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: rgb(0, 0, 0);
+}
+
+.auth-links {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(9, 9, 9, 0.2);
+    height: 5vh;
+    font-family: "Freeman", sans-serif;
+    transition: color 0.3s;
+}
+
+.login-button:hover,
+.register-button:hover {
+    color: rgb(0, 0, 0);
+}
+
+.login-button,
+.register-button {
+    color: rgb(246, 243, 243);
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 1.0rem;
+    transition: color 0.3s;
+}
+
+
+
+
+
+.icon-home {
+    color: white;
+    font-size: 25px;
+
+}
