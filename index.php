@@ -3,8 +3,7 @@
 require_once(dirname(__FILE__) ."/Utils/Router.php");
 require_once("vendor/autoload.php");
 
-
-
+ 
 $router = new Router();
 
 
@@ -19,4 +18,3 @@ $router->addRoute('/', function () {
 
 
 $router->dispatch();
-?>

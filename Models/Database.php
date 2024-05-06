@@ -12,9 +12,6 @@ class DBContext
         return $this->usersDatabase;
     }
 
-  
-    
-
     function __construct()
     {
         $host = $_ENV['host'];
