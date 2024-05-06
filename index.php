@@ -27,6 +27,10 @@ $router->addRoute('/verify_email', function () {
 });
 
 
+$router->addRoute('/contact', function () {
+    require __DIR__ .'/Pages/contact.php';
+});
+
 
 $router->dispatch();
 ?>
