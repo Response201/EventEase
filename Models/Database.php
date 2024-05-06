@@ -40,6 +40,15 @@ class DBContext
             PRIMARY KEY (`timeStamp`)
        
         )';
+            $this->pdo->exec($sql);
+
+        $sql = 'CREATE TABLE IF NOT EXISTS `teachers` (
+            `Id` INT AUTO_INCREMENT, 
+            `name` VARCHAR(100) NOT NULL, 
+            `email` VARCHAR(100) NOT NULL,
+            `availableTimes` TEXT,
+            PRIMARY KEY (`Id`)       
+        )';
 
         $this->pdo->exec($sql);
         

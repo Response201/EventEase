@@ -1,6 +1,6 @@
 <div class="auth-links">
     <a href="/login" class="login-button">Logga In</a>
-    <a href="/register" class="register-button">Registrera</a>
+    <a href="/registration" class="register-button">Registrera</a>
 </div>
 <nav class="navigation">
     <ul class="nav-list">
