@@ -1,7 +1,9 @@
-* {
+body, html {
     margin: 0;
     padding: 0;
 }
+
+
 
 .container {
     width: 100%;
@@ -22,6 +24,7 @@
     left: 16%;
     position: absolute;
     top: 50%;
+  z-index: 1;
 }
 
 .slogan-text h1 {

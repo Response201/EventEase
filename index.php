@@ -17,6 +17,16 @@ $router->addRoute('/', function () {
     require __DIR__ .'/Pages/index.php';
 });
 
+$router->addRoute('/registration', function () {
+    require __DIR__ .'/Pages/registration.php';
+});
+
+
+$router->addRoute('/verify_email', function () {
+    require __DIR__ .'/functions/verify.php';
+});
+
+
 
 $router->dispatch();
 ?>

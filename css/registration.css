@@ -1,0 +1,130 @@
+
+body{
+    margin: 0;
+    padding: 0;
+}
+ html{
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 85vh;
+    min-height: 500px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: hsla(45, 100%, 88%, 1);
+    background: linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#FFEFC1", endColorstr="#874F9E", GradientType=1);
+overflow: hidden;
+}
+
+.background{
+    height: 50%;
+    position: absolute;
+    top: 25%;
+    z-index: 1;
+    display: flex;
+   align-items: center;
+justify-content: center;
+}
+.background img{
+    height: 100%;
+    image-rendering: contain;
+}
+
+
+
+.from {
+    height: 250px;
+    width: 85vw;
+    max-width: 400px;
+    background-color: rgb(255, 255, 255);
+    z-index: 10;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+ padding: 1rem;
+ align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: gray 5px 5px 2px;
+  border: gray 1px solid;
+  font-family: "Poppins", sans-serif;
+}
+
+.fromInputs{
+width: 100%;
+height: 50%;
+display: flex;
+flex-direction: column;
+justify-content: end;
+
+
+
+}
+.fromInputs label{
+    letter-spacing: 1.5px;
+padding: 0.5rem 0 0.2rem 0;
+font-size: 14px;
+
+    
+    }
+    .fromInputs input{
+letter-spacing:2px;
+        height: 2rem;
+       
+            }
+            .fromInputs input:focus{
+                height: 2rem;
+                outline: none;
+               border: 2px rgba(134, 79, 156, 0.637) solid;
+               border-radius: 3px;
+                    }
+
+
+.fromBtnMessage{
+    position: relative;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.fromBtnMessage button{
+    height: 2rem;
+ max-width: 100px;
+ margin-top: 2.3rem;
+ background: linear-gradient(45deg, rgba(255, 240, 194, 0.64) 0%, rgba(134, 79, 156, 0.448) 100%);
+ border: none;
+ padding: 0.3rem 0.5rem;
+ border-radius: 5px;
+ box-shadow: gray 3px 3px 2px;
+  border: gray 1px solid;
+  letter-spacing: 1.5px;
+  transition: 0.25s ease;
+  color: rgb(89, 90, 90);
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+
+ }
+ .fromBtnMessage button:hover{
+
+ box-shadow: gray 0.7px 0.7px 0px;
+  border: gray 1px solid;
+
+
+
+ }
+
+ .fromBtnMessage p{
+ position: absolute;
+ top: -2%;
+ right: 0;
+ font-size: 12px;
+ letter-spacing: 1.2px;
+ }
