@@ -26,11 +26,6 @@ class DBContext
     }
 
 
-
-
-
-
-    /*  tabell för bokningar */
     function initIfNotInitialized()
     {
         static $initialized = false;
