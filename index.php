@@ -17,6 +17,10 @@ $router->addRoute('/', function () {
     require __DIR__ .'/Pages/index.php';
 });
 
+$router->addRoute('/contact', function () {
+    require __DIR__ .'/Pages/contact.php';
+});
+
 
 $router->dispatch();
 ?>
