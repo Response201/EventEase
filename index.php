@@ -17,6 +17,11 @@ $router->addRoute('/', function () {
     require __DIR__ .'/Pages/index.php';
 });
 
+$router->addRoute('/login', function() {
+    require __DIR__ . '/Pages/login.php';
+});
+
+
 
 $router->dispatch();
 ?>

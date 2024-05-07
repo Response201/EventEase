@@ -26,6 +26,9 @@
 
 .slogan-text h1 {
     text-transform: uppercase;
+    background: -webkit-linear-gradient(#eee 40%, hsla(283, 33%, 46%, 1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .slogan-text {
