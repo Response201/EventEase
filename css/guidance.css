@@ -78,6 +78,7 @@ h3{
     flex-wrap: wrap;
     gap: 25px;
     padding-left: 150px;
+    padding-right: 150px;
     margin: 0;
     list-style: none;
 }
