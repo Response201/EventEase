@@ -29,9 +29,9 @@ $dbContext = new DBContext();
 <html>
 <body>
 <?php include(__DIR__ . '/../views/Navbar.php'); ?>
-<div class="container">
 
-<div class="container">
+
+<div class="contact-container">
     <div class="teacher-container">
         <h2>Välj en lärare och visa tillgängliga tider</h2>
         <form action="" method="get">
@@ -59,8 +59,8 @@ $dbContext = new DBContext();
             }
             ?>
         </div>
-    </div>
-
+    
+</div>
 <?php include(__DIR__ . '/../views/Footer.php'); ?>
 </body>
 </html>

@@ -1,3 +1,13 @@
+.contact-container {
+    width: 100%;
+    height: 120vh;
+    background: linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFEFC1", endColorstr="#874F9E", GradientType=1);
+
+}
+
 .teacher-container {
     display: flex;
     justify-content: center;
@@ -6,6 +16,7 @@
     width: 100%;
     height: 50%;
     gap: 10px;
+
 }
 
 .teacher-container h2 {

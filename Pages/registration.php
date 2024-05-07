@@ -36,23 +36,8 @@ if (isset($_POST['create'])) {
 <!DOCTYPE html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>EventEase</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
-    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway&family=Roboto:wght@300&display=swap" rel="stylesheet">
-
-
-    <link rel="icon" type="image/ico" href="assets/favicon.ico" />
-    <link href="/css/navigation.css" rel="stylesheet" />
-    <link href="/css/footer.css" rel="stylesheet" />
-    <link href="/css/registration.css" rel="stylesheet" />
+<?php include(__DIR__ . '/../includes/head.php'); ?>
 
 </head>
 
