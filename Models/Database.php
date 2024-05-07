@@ -1,7 +1,9 @@
 <?php
 
 require_once ('Models/UserDatabase.php');
-
+require_once ('Models/Booking.php');
+date_default_timezone_set('Europe/Stockholm');
+setlocale(LC_TIME, 'sv_SE');
 class DBContext
 {
     private $pdo;
@@ -21,10 +23,115 @@ class DBContext
         $dsn = "mysql:host=$host;dbname=$db";
         $this->pdo = new PDO($dsn, $user, $pass);
         $this->usersDatabase = new UserDatabase($this->pdo);
+       
         $this->initIfNotInitialized();
+        $this->seedfNotSeeded();
     
     }
 
+
+
+
+/* filtrerar ut bokningar för en elev -> id och om datumet + tiden inte är äldre en dagens + klockslag 
+
+Hämtningen kan användas så här(frontend):
+
+
+<?php 
+
+$bookings = $dbContext->getPupilbookings(2);
+
+
+foreach($bookings as $item){
+
+echo "<h1> $item[timeStamp] </h1>";
+
+
+} ?>
+
+
+
+
+*/
+
+function getPupilbookings($pupilId)
+{
+   
+    $date = date("Y-m-d H:i:s");
+    $prep = $this->pdo->prepare('SELECT * FROM bookings where pupilId=:pupilId AND timeStamp > :date;
+    ');
+   
+    $prep->execute([':pupilId' => $pupilId, ':date' => $date]);
+    return $prep->fetchAll();
+}
+
+
+
+
+
+
+/* Hämtar bokningar för lärare(skapa den eftersom den behövs för att skapa dummydata ) */
+
+    function getBooking($teacherId, $timeStamp)
+    {
+        $prep = $this->pdo->prepare('SELECT * FROM bookings where teacherId=:teacherId AND timeStamp=:timeStamp');
+      /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN  
+       $prep->setFetchMode(PDO::FETCH_CLASS, 'Booking'); */
+        $prep->execute(['teacherId' => $teacherId, ':timeStamp' => $timeStamp]);
+        return $prep->fetch();
+    }
+
+/* Skapar bokning om ingen finns */
+    function createIfNotExisting($teacherId, $pupilId, $active, $timeStamp)
+    {
+        $existing = $this->getBooking($teacherId, $timeStamp);
+        if ($existing) {
+            return;
+        }
+        ;
+        return $this->addBooking($teacherId, $pupilId, $active, $timeStamp);
+    }
+
+
+
+/* Lägger till bokning -> kan även användas när en ny bokning ska göras */
+
+    function addBooking($teacherId, $pupilId, $active, $timeStamp)
+    {
+        $prep = $this->pdo->prepare('INSERT INTO bookings (teacherId, pupilId, active, timeStamp) VALUES(:teacherId, :pupilId, :active, :timeStamp)');
+           /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN  
+       $prep->setFetchMode(PDO::FETCH_CLASS, 'Booking'); */
+        $prep->execute(['teacherId' => $teacherId, 'pupilId' => $pupilId, 'active' => $active,'timeStamp'=> $timeStamp]);
+        return $this->pdo->lastInsertId();
+    }
+
+
+
+
+    /* DUMMYDATA */
+
+       function seedfNotSeeded()
+        {
+            static $seeded = false;
+            if ($seeded)
+                return;
+    
+                $this->createIfNotExisting( 1, 2, 1, '2024-05-22 20:00');
+                $this->createIfNotExisting(2, 2, 1, '2024-05-22 17:00');
+                $this->createIfNotExisting( 3, 1, 1, '2024-05-22 19:00');
+                $this->createIfNotExisting( 1, 1, 1, '2024-05-22 18:00');
+                
+
+            $seeded = true;
+        }
+    
+
+
+
+
+
+
+/* Dubletter av lärarid + tid kan ej förekomma */
 
     function initIfNotInitialized()
     {
@@ -37,7 +144,7 @@ class DBContext
             `pupilId` int(10) NOT NULL, 
             `active` boolean NOT NULL,
             `timeStamp` varchar(20) NOT NULL,
-            PRIMARY KEY (`timeStamp`)
+            PRIMARY KEY (`teacherId`, `timeStamp`)
        
         )';
             $this->pdo->exec($sql);
@@ -51,6 +158,10 @@ class DBContext
         )';
 
         $this->pdo->exec($sql);
+
+
+
+
         
         $this->usersDatabase->setupUsers();
         $this->usersDatabase->seedUsers();
