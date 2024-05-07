@@ -9,21 +9,21 @@ $dbContext = new DBContext();
 $message = $_GET['message'] ?? "";
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
-$passwordAgain = $_POST['passwordAgain'] ?? '';
+$email = $_POST['email'] ?? '';
 
 
 if (isset($_POST['create'])) {
 
-    if (!$password || !$username) {
+    if (!$password || !$username || !$email) {
         $message = "Vänligen fyll i alla fält";
     } else {
-        $v->field('username')->required()->email()->min_val(1)->max_len(100);
-        ;
+        $v->field('email')->required()->email()->min_val(1)->max_len(100);
+        $v->field('username')->required()->alpha()->min_val(1)->max_len(15);
         $v->field('password')->required()->match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/");
         if ($v->is_valid()) {
             $message = auth();
             if ($message === 'Tack för din registering, kolla mailet och verifiera ditt konto') {
-                $dbContext->getUsersDatabase()->makeConsumer($username);
+                $dbContext->getUsersDatabase()->makeConsumer($email);
             }
         } else {
             $message = "Det gick inte registrera kontot";
@@ -48,7 +48,9 @@ if (isset($_POST['create'])) {
 
         <form class="from" method="POST">
             <section class="fromInputs">
-                <label>Användarnamn: </label>
+                <label>Epostadress: </label>
+                <input name="email"   />
+                <label>Namn: </label>
                 <input name="username" type="text"  />
                 <label>Lösenord: </label>
                 <input name="password" type="password" />

@@ -17,12 +17,12 @@ class UserDatabase
   
 
   /* sätt roll på user => epostadress ska skickas in */
-  function makeConsumer($username)
+  function makeConsumer($email)
   {
-    if ($this->auth->hasRole(\Delight\Auth\Role::CONSUMER, $username)) {
+    if ($this->auth->hasRole(\Delight\Auth\Role::CONSUMER, $email)) {
       return;
     }
-    $this->auth->admin()->addRoleForUserByEmail($username, \Delight\Auth\Role::CONSUMER);
+    $this->auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::CONSUMER);
   }
 
 
@@ -103,16 +103,23 @@ class UserDatabase
 
   function seedUsers()
   {
+
+    /* Skapar användare med rollen lärare  */
     if ($this->pdo->query("select * from users where email='stefan.holmberg@systementor.se'")->rowCount() == 0) {
-      $userId = $this->auth->admin()->createUser("stefan.holmberg@systementor.se", "Hejsan123#", "stefan.holmberg@systementor.se");
-      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::ADMIN);
+      $userId = $this->auth->admin()->createUser("stefan.holmberg@systementor.se", "Hejsan123#", "Stefan");
+      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
+    }
+
+    if ($this->pdo->query("select * from users where email='sebastian.tegel@tegelconsulting.se'")->rowCount() == 0) {
+      $userId = $this->auth->admin()->createUser("sebastian.tegel@tegelconsulting.se", "Hanna123!", "Sebastian");
+      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
+    }
+    if ($this->pdo->query("select * from users where email='anders@vemvet.se'")->rowCount() == 0) {
+      $userId = $this->auth->admin()->createUser("anders@vemvet.se", "Anders123!", "Anders");
+      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
     }
 
 
-    if ($this->pdo->query("select * from users where email='oliver@systementor.se'")->rowCount() == 0) {
-      $userId = $this->auth->admin()->createUser("oliver@systementor.se", "Hejsan123#", "oliver@systementor.se");
-      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::CONSUMER);
-    }
-  }
 }
+ }
 ?>
