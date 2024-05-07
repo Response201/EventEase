@@ -58,7 +58,7 @@ if (isset($_POST['create'])) {
 
 <body>
 
-    <div class="container">
+    <div class="registration-container">
         <?php include (__DIR__ . '/../views/Navbar.php'); ?>
 
         <form class="from" method="POST">

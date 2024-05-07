@@ -7,20 +7,24 @@
     height: 50%;
     gap: 10px;
 }
+
 .teacher-container h2 {
     color: white;
     font-family: "Freeman", sans-serif;
     font-size: 2rem;
 }
+
 .teacher-container label {
     color: white;
     font-family: "Freeman", sans-serif;
 
 }
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
+
 .dropdown-btn {
     background-color: #ffffff;
     color: #000000;
@@ -32,6 +36,7 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 .dropdown-btn::after {
     content: "\25BC";
     display: inline-block;
