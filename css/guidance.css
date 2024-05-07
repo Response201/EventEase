@@ -1,0 +1,127 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+.guidance-wrapper{
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
+    font-family: "Lato", sans-serif;
+}
+
+.guidance-nav{
+  
+    width: 100%;
+    min-height: 80px;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 150px;
+    padding-right: 150px;
+    font-weight: 700;
+}
+
+.logo-name{
+    display: flex;
+    gap: 5px;
+}
+
+h2{
+    margin: 0;
+    font-weight: 700;
+}
+
+h3{
+    color: white;
+    margin: 0;
+    font-weight: 700;
+    padding-left: 150px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    left: 195px;;
+}
+
+.booking-links{
+    margin: 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 75px;
+}
+
+.logo-name-booking-list{
+    display: flex;
+    align-items: center;
+    gap: 75px;
+}
+
+.profile-links{
+    margin: 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 75px;
+}
+
+.fa-angle-down{
+    padding-left: 5px;
+    vertical-align:middle;
+}
+
+.timeslot-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding-left: 150px;
+    margin: 0;
+    list-style: none;
+}
+
+.time-card{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    width: 240px;
+    height: auto;  
+    background: rgba(255, 255, 255, 0.41);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(14.7px);
+    -webkit-backdrop-filter: blur(14.7px);
+}
+
+p{
+    font-weight: 700;
+    margin: 0;
+}
+
+.booking-button{
+    width: 30%;
+    height: 40px;
+    border: none;
+    border-radius: 50px;
+    background-color: #001584;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    
+}
+
+.booking-button:hover{
+    background-color: #0021c3;
+}
+
+.button-img{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.teacher-avatar{
+    height: 45px;
+}
