@@ -12,9 +12,6 @@ class DBContext
         return $this->usersDatabase;
     }
 
-  
-    
-
     function __construct()
     {
         $host = $_ENV['host'];
@@ -29,11 +26,6 @@ class DBContext
     }
 
 
-
-
-
-
-    /*  tabell för bokningar */
     function initIfNotInitialized()
     {
         static $initialized = false;
@@ -47,6 +39,15 @@ class DBContext
             `timeStamp` varchar(20) NOT NULL,
             PRIMARY KEY (`timeStamp`)
        
+        )';
+            $this->pdo->exec($sql);
+
+        $sql = 'CREATE TABLE IF NOT EXISTS `teachers` (
+            `Id` INT AUTO_INCREMENT, 
+            `name` VARCHAR(100) NOT NULL, 
+            `email` VARCHAR(100) NOT NULL,
+            `availableTimes` TEXT,
+            PRIMARY KEY (`Id`)       
         )';
 
         $this->pdo->exec($sql);

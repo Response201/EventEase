@@ -3,8 +3,7 @@
 require_once(dirname(__FILE__) ."/Utils/Router.php");
 require_once("vendor/autoload.php");
 
-
-
+ 
 $router = new Router();
 
 
@@ -17,11 +16,27 @@ $router->addRoute('/', function () {
     require __DIR__ .'/Pages/index.php';
 });
 
+
 $router->addRoute('/login', function() {
     require __DIR__ . '/Pages/login.php';
 });
 
 
 
+$router->addRoute('/registration', function () {
+    require __DIR__ .'/Pages/registration.php';
+});
+
+
+$router->addRoute('/verify_email', function () {
+    require __DIR__ .'/functions/verify.php';
+});
+
+
+$router->addRoute('/contact', function () {
+    require __DIR__ .'/Pages/contact.php';
+});
+
+
+
 $router->dispatch();
-?>
