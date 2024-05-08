@@ -13,7 +13,7 @@ $dbContext = new DBContext();
 $pdo = $dbContext->getPdo(); 
 
 $userDatabase = new UserDatabase($pdo);
-
+$auth = new \Delight\Auth\Auth($pdo, null, null, false, 2 * 60 * 60);
 $auth = $userDatabase->getAuth();
 $username = $auth->getUsername();
 $message = "";

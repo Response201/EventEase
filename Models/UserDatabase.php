@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php'));
 
 
 class UserDatabase
@@ -17,7 +17,7 @@ class UserDatabase
   {
 
     $this->pdo = $pdo;
-    $this->auth = new \Delight\Auth\Auth($pdo);
+    $this->auth = new \Delight\Auth\Auth($pdo, null, null, false, 2 * 60 * 60); 
   }
 
   
