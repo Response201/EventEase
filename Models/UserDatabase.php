@@ -14,7 +14,7 @@ class UserDatabase
     $this->auth = new \Delight\Auth\Auth($pdo);
   }
 
-  
+
 
   /* sätt roll på user => epostadress ska skickas in */
   function makeConsumer($email)
@@ -118,6 +118,8 @@ class UserDatabase
       $userId = $this->auth->admin()->createUser("anders@vemvet.se", "Anders123!", "Anders");
       $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
     }
+
+
+  }
 }
- }
 ?>

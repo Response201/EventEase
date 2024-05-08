@@ -133,6 +133,26 @@ class DBContext
         $usernames = $stmt->fetchAll(PDO::FETCH_COLUMN);
         return $usernames;
     }
+
+    function updateBookingStatus($teacherId, $timeStamp)
+    {
+        $checkSql = "SELECT status FROM bookings WHERE teacherId = :teacherId AND timeStamp = :timeStamp";
+        $prepCheck = $this->pdo->prepare($checkSql);
+        $prepCheck->execute([':teacherId' => $teacherId, ':timeStamp' => $timeStamp]);
+        $result = $prepCheck->fetch(PDO::FETCH_ASSOC);
+
+        if ($result && $result['status']) {
+            $updateSql = "UPDATE bookings SET status = 0 WHERE teacherId = :teacherId AND timeStamp = :timeStamp AND status = 1";
+            $prepUpdate = $this->pdo->prepare($updateSql);
+            if ($prepUpdate->execute([':teacherId' => $teacherId, ':timeStamp' => $timeStamp])) {
+                return "Booking status updated successfully.";
+            } else {
+                return "Error updating booking status.";
+            }
+        } else {
+            return "This booking is already inactive.";
+        }
+    }
     /* DUMMYDATA */
 
     function seedfNotSeeded()
