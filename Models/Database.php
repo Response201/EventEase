@@ -51,10 +51,28 @@ echo "<h1> $item[timeStamp] </h1>";
 */
  //Function för att posta en bokning, vi behöver teacherId, pupilId och timestamp.
 
- function makeBooking()
- {
-    
- }
+ function updateBookingStatus($teacherId)
+{
+    // Vi kollar satusen först innan vi updaterar
+    $checkSql = "SELECT status FROM bookings WHERE teacherId = :teacherId";
+    $prepCheck = $this->pdo->prepare($checkSql);
+    $prepCheck->execute([':teacherId' => $teacherId]);
+    $result = $prepCheck->fetch(PDO::FETCH_ASSOC);
+
+    if ($result && $result['status'] == 1) {
+        // updater från 1 till 0, aktiv blir oaktiv eftersom det är bollean så måste det vara 1 och 0
+        $updateSql = "UPDATE bookings SET status = 0 WHERE teacherId = :teacherId AND status = 1";
+        $prepUpdate = $this->pdo->prepare($updateSql);
+        if ($prepUpdate->execute([':teacherId' => $teacherId])) {
+            return "Booking status updated successfully.";
+        } else {
+            return "Error updating booking status.";
+        }
+    } else {
+        return "This booking is already taken.";
+    }
+}
+
 function getPupilbookings($pupilId)
 {
     $date = date("Y-m-d H:i:s");
