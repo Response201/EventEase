@@ -42,6 +42,9 @@ $router->addRoute('/guidance', function () {
 });
 
 
+$router->addRoute('/logout', function () {
+    require __DIR__ .'/Pages/logout.php';
+});
 
 
 

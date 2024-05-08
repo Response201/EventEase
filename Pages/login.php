@@ -1,4 +1,43 @@
+<?php
+session_start();
+ob_start();
+require_once(realpath(dirname(__FILE__) . '/../Models/UserDatabase.php'));
+require_once(realpath(dirname(__FILE__) . '/../Models/Database.php'));
+require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
+require_once(realpath(dirname(__FILE__) . '/../functions/auth.php'));
+require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php'));
 
+
+
+$dbContext = new DBContext();
+$pdo = $dbContext->getPdo(); 
+
+$userDatabase = new UserDatabase($pdo);
+
+$auth = $userDatabase->getAuth();
+$username = $auth->getUsername();
+$message = "";
+$username = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
+$result = $userDatabase->loginUser($username, $password);
+
+if (isset($_POST['login'])) {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+ 
+    
+    $login_status = $userDatabase->loginUser($username, $password);
+    if ($login_status === true) {
+        $_SESSION['username'] = $userDatabase->getAuth()->getUsername();
+        $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
+        header("Location: /Pages/index.php"); 
+        exit;
+    } else {
+        $message = $login_status; 
+    }
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,14 +53,15 @@
 <div class="login-wrapper">
 <div class="login-container">
 <h2>Logga In</h2>
-<form action="service/LogInHandler" method="post">
+<form  method="post">
         <label for="username">Användarnamn:</label>
         <input type="text" id="username" name="username" required>
         <br>
         <label for="password">Lösenord:</label>
         <input type="password" id="password" name="password" required>
         <br>
-        <button type="submit">Logga In</button>
+        <button type="submit" name="login">Logga In</button>
+        <p><?php echo "$message"; ?></p>
     </form>
     
     <p> Har du inget konto? <a href="/register">Registrera dig här!</a></p>

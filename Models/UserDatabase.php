@@ -1,15 +1,21 @@
 <?php
 require 'vendor/autoload.php';
+
+
 class UserDatabase
 {
   private $pdo;
   private $auth;
+
+  
   function getAuth()
   {
+    
     return $this->auth;
   }
   function __construct($pdo)
   {
+
     $this->pdo = $pdo;
     $this->auth = new \Delight\Auth\Auth($pdo);
   }
@@ -26,7 +32,25 @@ class UserDatabase
   }
 
 
-
+  
+  function loginUser($username, $password)
+  {
+    
+      try {
+          $this->auth->loginWithUsername($username, $password);
+          return true;
+      }
+      catch (\Delight\Auth\InvalidPasswordException $e) {
+          return 'Wrong password';
+      }
+      catch (\Delight\Auth\UnknownUsernameException $e) {
+          return 'Unknown username';
+      }
+      catch (\Delight\Auth\TooManyRequestsException $e) {
+          return 'Too many requests';
+      }
+  }
+  
 
   function setupUsers()
   {

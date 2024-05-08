@@ -4,6 +4,7 @@ require_once ('Models/Database.php');
 require_once ('functions/auth.php');
 require_once ("Utils/Validator.php");
 
+
 $v = new Validator($_POST);
 $dbContext = new DBContext();
 $message = $_GET['message'] ?? "";
@@ -38,6 +39,7 @@ if (isset($_POST['create'])) {
 <head>
 
 <?php include(__DIR__ . '/../includes/head.php'); ?>
+
 
 </head>
 

@@ -80,7 +80,7 @@
     margin-bottom: 5%;
     font-family: "Freeman", sans-serif;
     position: relative;
-    left: 2.7%;
+
 }
 
 .login-container button:hover {
@@ -96,4 +96,11 @@
     background: -webkit-linear-gradient(#eee, hsla(283, 33%, 46%, 1));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
