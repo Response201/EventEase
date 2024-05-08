@@ -51,12 +51,12 @@ $dbContext = new DBContext();
                 <?php
                 $unbookedBookings = $dbContext->getAllUnbookedBookings();
                 foreach ($unbookedBookings as $booking) {
-                    $teacherName = $dbContext->getTeacherNameById($booking['teacherId']); // Funktion för att hämta lärarnamnet från ID
+                    $teacherName = $dbContext->getTeacherNameById($booking['teacherId']);
                     echo "<li class='time-card'>";
                     echo "<p>" . date("l d/m", strtotime($booking['timeStamp'])) . "</p>";
                     echo "<p>Kl " . date("H:i", strtotime($booking['timeStamp'])) . "</p>";
                     echo "<p>Lärare: " . htmlspecialchars($teacherName) . "</p>";
-                    echo "<p>Rum 1</p>"; // Antag att detta också skulle kunna vara dynamiskt
+                    echo "<p>Rum 1</p>";
                     echo "<div class='button-img'><button class='booking-button'>Boka</button>";
                     echo "<img class='teacher-avatar' src='img\\teacher.png' alt='teacher'></div>";
                     echo "</li>";
