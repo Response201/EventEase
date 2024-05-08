@@ -1,6 +1,24 @@
+<?php
+require_once(realpath(dirname(__FILE__) . '/../Models/UserDatabase.php'));
+require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
+
+$pdo = new PDO('mysql:host=localhost;dbname=eventease', 'root', 'root'); 
+$userDatabase = new UserDatabase($pdo);
+$auth = $userDatabase->getAuth();
+
+$usernameString = "";
+
+if ($auth->isLoggedIn()) {
+    $username = $auth->getUsername();
+    $usernameString = "<li>Välkommen " . htmlspecialchars($username) .  "! Är du redo att boka din nästa handledning? </li>";
+}
+?>
 <div class="auth-links">
     <a href="/login" class="login-button">Logga In</a>
     <a href="/registration" class="register-button">Registrera</a>
+    <div class="loggedInAs">
+    <?php echo $usernameString; ?>
+    </div>
 </div>
 <nav class="navigation">
     <ul class="nav-list">
@@ -10,6 +28,8 @@
         </a>
         <li class="nav-item"><a href="/guidance" class="nav-link">handledning</a></li>
         <li class="nav-item"><a href="/contact" class="nav-link">Kontakta lärare</a></li>
+
+    
 
     </ul>
 </nav>

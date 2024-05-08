@@ -1,11 +1,6 @@
 <?php
 ob_start();
-include_once ("Models/Database.php");
-include_once ("Models/Booking.php");
 
-
-
-$dbContext = new DBContext();
  ?>
 <!DOCTYPE html>
 

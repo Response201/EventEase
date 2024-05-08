@@ -6,7 +6,7 @@ class DBContext
 {
     private $pdo;
     private $usersDatabase;
-
+    
     function getUsersDatabase()
     {
         return $this->usersDatabase;
@@ -19,12 +19,23 @@ class DBContext
         $user = $_ENV['user'];
         $pass = $_ENV['pass'];
         $dsn = "mysql:host=$host;dbname=$db";
-        $this->pdo = new PDO($dsn, $user, $pass);
+
+        try {
+            $this->pdo = new PDO($dsn, $user, $pass);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+
+
         $this->usersDatabase = new UserDatabase($this->pdo);
         $this->initIfNotInitialized();
-    
+        
+        
     }
 
+    public function getPdo() {
+        return $this->pdo;
+    }
 
     function initIfNotInitialized()
     {

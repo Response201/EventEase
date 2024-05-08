@@ -38,5 +38,8 @@ $router->addRoute('/contact', function () {
 });
 
 
+$router->addRoute('/logout', function () {
+    require __DIR__ .'/Pages/logout.php';
+});
 
 $router->dispatch();
