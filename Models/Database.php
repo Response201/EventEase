@@ -51,28 +51,29 @@ echo "<h1> $item[timeStamp] </h1>";
 */
  //Function för att posta en bokning, vi behöver teacherId, pupilId och timestamp.
 
- function updateBookingStatus($teacherId)
-{
-    // Vi kollar satusen först innan vi updaterar
-    $checkSql = "SELECT status FROM bookings WHERE teacherId = :teacherId";
+ function updateBookingStatus($teacherId, $timeStamp) {
+    $checkSql = "SELECT status FROM bookings WHERE teacherId = :teacherId AND timeStamp = :timeStamp";
     $prepCheck = $this->pdo->prepare($checkSql);
-    $prepCheck->execute([':teacherId' => $teacherId]);
+    $prepCheck->execute([':teacherId' => $teacherId, ':timeStamp' => $timeStamp]);
     $result = $prepCheck->fetch(PDO::FETCH_ASSOC);
 
-    if ($result && $result['status'] == 1) {
-        // updater från 1 till 0, aktiv blir oaktiv eftersom det är bollean så måste det vara 1 och 0
-        $updateSql = "UPDATE bookings SET status = 0 WHERE teacherId = :teacherId AND status = 1";
+    if ($result && $result['status']) {
+        $updateSql = "UPDATE bookings SET status = 0 WHERE teacherId = :teacherId AND timeStamp = :timeStamp AND status = 1";
         $prepUpdate = $this->pdo->prepare($updateSql);
-        if ($prepUpdate->execute([':teacherId' => $teacherId])) {
+        if ($prepUpdate->execute([':teacherId' => $teacherId, ':timeStamp' => $timeStamp])) {
             return "Booking status updated successfully.";
         } else {
             return "Error updating booking status.";
         }
     } else {
-        return "This booking is already taken.";
+        return "This booking is already inactive.";
     }
 }
 
+// $date = date("Y-m-d H:i:s");
+//     $prep = $this->pdo->prepare('SELECT * FROM bookings where pupilId=:pupilId AND timeStamp > :date;
+
+//Gör en liknande funktion som renderar 
 function getPupilbookings($pupilId)
 {
     $date = date("Y-m-d H:i:s");
@@ -131,7 +132,6 @@ function getPupilbookings($pupilId)
             $seeded = true;
         }
 
- 
 /* Dubletter av lärarid + tid kan ej förekomma */
  
     function initIfNotInitialized()
@@ -153,7 +153,7 @@ function getPupilbookings($pupilId)
             `Id` INT AUTO_INCREMENT, 
             `name` VARCHAR(100) NOT NULL, 
             `email` VARCHAR(100) NOT NULL,
-            `availableTimes` TEXT,
+            `availableTimes` VARCHAR(255),
             PRIMARY KEY (`Id`)       
         )';
  
