@@ -3,9 +3,31 @@ ob_start();
 include_once ("Models/Database.php");
 include_once ("Models/Booking.php");
 
-
+$message = '';
 
 $dbContext = new DBContext();
+if (isset($_POST['save'])){
+$teacherId = $_POST['teacherId'] ?? '';
+$timeStamp = $_POST['timeStamp'] ?? '';
+
+/* Lägg till när inloggning är implementerat 
+
+$pupilId = $auth->getUserId();
+
+*/
+
+/* !!! går ej göra bokningen med samma pupilID fler ggr än 1 gång, då får man fel */
+$pupilId = 2;
+$message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp, 1);
+
+ }
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 
@@ -45,6 +67,11 @@ $dbContext = new DBContext();
 
         <div class="content-container">
             <h3>Lediga tider</h3>
+
+
+<!-- TABORT SEN -->
+<p><?php echo"$message";?>  </p>
+
             <!--Productkort/main-->
             <ul class="timeslot-list">
                 <li class="time-card">
@@ -56,9 +83,16 @@ $dbContext = new DBContext();
                     <!--Dynamisk data här-->
                     <p>Rum 1</p>
                     <!--Dynamisk data här-->
-                    <div class="button-img"><button class="booking-button">Boka</button>
+                    <form method='POST' class="button-img"><button class="booking-button" name="save">Boka</button>
                         <!--Byt mot riktig länk--><img class="teacher-avatar" src="img\teacher.png" alt="teacher">
-                    </div>
+
+
+
+                        <!-- VALUES I INPUTS SKA HA DYNAMISKVARIABEL NÄR KOMPONENT BYGGTS !!INTE HÅRDKODAT VÄRDE SOM NU !! -->
+                        <input type="hidden" name="teacherId"  value="1" />
+                        <input type="hidden" name="timeStamp"  value="2024-05-22 18:00" />
+                        
+                    </form>
                 </li>
             </ul>
         </div>

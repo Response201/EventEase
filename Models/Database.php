@@ -45,6 +45,30 @@ class DBContext
     }
 
 
+/* Uppdatera -> göra så en elev kan boka samt avboka en tid med lärare -> vid tabort så skicka in null för pupilId och $status 0 */
+
+function updateBooking($pupilId, $teacherId, $timeStamp, $status)
+{
+ 
+   
+    $prep = $this->pdo->prepare("UPDATE bookings SET pupilId = :pupilId, status = :status
+    WHERE teacherId=:teacherId AND timeStamp=:timeStamp");
+
+    $prep->execute([':pupilId' => $pupilId,  ':teacherId' => $teacherId, ':status' =>  $status, ':timeStamp' => $timeStamp, ]);
+    if ($prep->rowCount() > 0) {
+        return 'Bokning genomförd';
+    } else {
+        return "Det gick inte boka tiden";
+    }
+}
+
+
+
+
+
+
+
+
 
 /* filtrerar ut bokningar för en elev -> id och om datumet + tiden inte är äldre en dagens + klockslag 
 
@@ -62,8 +86,6 @@ echo "<h1> $item[timeStamp] </h1>";
 
 
 } ?>
-
-
 
 
 */
@@ -96,26 +118,26 @@ function getPupilbookings($pupilId)
     }
 
 /* Skapar bokning om ingen finns */
-    function createIfNotExisting($teacherId, $pupilId, $active, $timeStamp)
+    function createIfNotExisting($teacherId, $pupilId, $active, $status, $timeStamp)
     {
         $existing = $this->getBooking($teacherId, $timeStamp);
         if ($existing) {
             return;
         }
         ;
-        return $this->addBooking($teacherId, $pupilId, $active, $timeStamp);
+        return $this->addBooking($teacherId, $pupilId, $active, $status, $timeStamp);
     }
 
 
 
 /* Lägger till bokning -> kan även användas när en ny bokning ska göras */
 
-    function addBooking($teacherId, $pupilId, $active, $timeStamp)
+    function addBooking($teacherId, $pupilId, $active, $status, $timeStamp)
     {
-        $prep = $this->pdo->prepare('INSERT INTO bookings (teacherId, pupilId, active, timeStamp) VALUES(:teacherId, :pupilId, :active, :timeStamp)');
+        $prep = $this->pdo->prepare('INSERT INTO bookings (teacherId, pupilId, active, status, timeStamp) VALUES(:teacherId, :pupilId, :active, :status, :timeStamp)');
            /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN  
        $prep->setFetchMode(PDO::FETCH_CLASS, 'Booking'); */
-        $prep->execute(['teacherId' => $teacherId, 'pupilId' => $pupilId, 'active' => $active,'timeStamp'=> $timeStamp]);
+        $prep->execute(['teacherId' => $teacherId, 'pupilId' => $pupilId, 'active' => $active, 'status' => $status,'timeStamp'=> $timeStamp]);
         return $this->pdo->lastInsertId();
     }
 
@@ -130,10 +152,10 @@ function getPupilbookings($pupilId)
             if ($seeded)
                 return;
     
-                $this->createIfNotExisting( 1, 2, 1, '2024-05-22 20:00');
-                $this->createIfNotExisting(2, 2, 1, '2024-05-22 17:00');
-                $this->createIfNotExisting( 3, 1, 1, '2024-05-22 19:00');
-                $this->createIfNotExisting( 1, 1, 1, '2024-05-22 18:00');
+                $this->createIfNotExisting( 1, null, 1,0, '2024-05-22 20:00');
+                $this->createIfNotExisting(2, null, 1,0, '2024-05-22 17:00');
+                $this->createIfNotExisting( 3, null, 1,0, '2024-05-22 19:00');
+                $this->createIfNotExisting( 1, null, 1,0, '2024-05-22 18:00');
                 
 
             $seeded = true;
@@ -155,8 +177,9 @@ function getPupilbookings($pupilId)
        
         $sql = 'CREATE TABLE IF NOT EXISTS `bookings` (
             `teacherId` int(10)  NOT NULL, 
-            `pupilId` int(10) NOT NULL, 
+            `pupilId` int(10) NULL, 
             `active` boolean NOT NULL,
+            `status` boolean NOT NULL,
             `timeStamp` varchar(20) NOT NULL,
             PRIMARY KEY (`teacherId`, `timeStamp`)
        
