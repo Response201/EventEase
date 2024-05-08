@@ -118,8 +118,6 @@ class UserDatabase
       $userId = $this->auth->admin()->createUser("anders@vemvet.se", "Anders123!", "Anders");
       $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
     }
-
-
 }
  }
 ?>

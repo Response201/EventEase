@@ -52,7 +52,7 @@ class DBContext
 
 
 
-*/
+    */
 
     function getPupilbookings($pupilId)
     {
@@ -89,7 +89,7 @@ class DBContext
             return;
         }
         ;
-        return $this->addBooking($teacherId, $pupilId, $active, $timeStamp);
+        return $this->addBooking($teacherId, $pupilId, $active, $status, $timeStamp);
     }
 
 
@@ -108,22 +108,7 @@ class DBContext
 
 
 
-    function getAllUnbookedBookings()
-    {
-        $sql = 'SELECT * FROM bookings WHERE active = 1 ORDER BY timeStamp';
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
-    function getTeacherNameById($teacherId)
-    {
-        $sql = 'SELECT name FROM teachers WHERE Id = :teacherId';
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':teacherId' => $teacherId]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? $result['name'] : null;
-    }
     /* DUMMYDATA */
 
     function seedfNotSeeded()
