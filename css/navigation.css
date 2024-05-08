@@ -53,6 +53,7 @@
     font-family: "Freeman", sans-serif;
     transition: color 0.3s;
     top: 0;
+    z-index: 1000;
 }
 
 .login-button:hover,
