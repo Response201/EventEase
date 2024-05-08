@@ -118,11 +118,11 @@ class DBContext
 
     function getTeacherNameById($teacherId)
     {
-        $sql = 'SELECT name FROM teachers WHERE Id = :teacherId';
+        $sql = 'SELECT username FROM users WHERE Id = :teacherId';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':teacherId' => $teacherId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? $result['name'] : null;
+        return $result ? $result['username'] : null;
     }
     /* DUMMYDATA */
 
