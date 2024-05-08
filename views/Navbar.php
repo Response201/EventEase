@@ -14,11 +14,16 @@ if ($auth->isLoggedIn()) {
 }
 ?>
 <div class="auth-links">
-    <a href="/login" class="login-button">Logga In</a>
-    <a href="/registration" class="register-button">Registrera</a>
-    <div class="loggedInAs">
-    <?php echo $usernameString; ?>
-    </div>
+    <?php if ($auth->isLoggedIn()): ?>
+        <div class="loggedInAs">
+            <?php echo $usernameString; ?>
+            <a href="/logout" class="logout-button">Logga Ut</a>
+        </div>
+    <?php else: ?>
+        <a href="/login" class="login-button">Logga In</a>
+        <a href="/registration" class="register-button">Registrera</a>
+    <?php endif; ?>
+</div>
 </div>
 <nav class="navigation">
     <ul class="nav-list">

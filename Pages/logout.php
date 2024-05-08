@@ -5,5 +5,5 @@ session_destroy();
 
 
 
-    header('Location: AccountLogin.php');
+    header('Location: /login.php');
     exit;
