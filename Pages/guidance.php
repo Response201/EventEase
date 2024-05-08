@@ -26,11 +26,21 @@ $dbContext = new DBContext();
                 </div>
 
                 <ul class="booking-links">
-                    <li><a>Tillgängliga lärare</a><i class="fa-solid fa-angle-down"></i></li>
+                    <li>
+                        <a href="#">Tillgängliga lärare<i class="fa-solid fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <?php
+                            $teacherUsernames = $dbContext->getTeacherUsername();
+                            foreach ($teacherUsernames as $username) {
+                                echo '<li><a href="#">' . $username . '</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </li>
                     <!--Byt mot riktig länk-->
-                    <li><a>Hitta lediga tider</a></li>
+                    <li><a href="#">Hitta lediga tider</a></li>
                     <!--Byt mot riktig länk-->
-                    <li><a>Mina bokningar</a></li>
+                    <li><a href="#">Mina bokningar</a></li>
                     <!--Byt mot riktig länk-->
                 </ul>
             </div>
