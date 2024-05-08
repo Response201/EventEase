@@ -23,65 +23,65 @@ class DBContext
         $dsn = "mysql:host=$host;dbname=$db";
         $this->pdo = new PDO($dsn, $user, $pass);
         $this->usersDatabase = new UserDatabase($this->pdo);
-       
+
         $this->initIfNotInitialized();
         $this->seedfNotSeeded();
-    
+
     }
 
 
 
 
-/* filtrerar ut bokningar för en elev -> id och om datumet + tiden inte är äldre en dagens + klockslag 
+    /* filtrerar ut bokningar för en elev -> id och om datumet + tiden inte är äldre en dagens + klockslag 
 
-Hämtningen kan användas så här(frontend):
-
-
-<?php 
-
-$bookings = $dbContext->getPupilbookings(2);
+    Hämtningen kan användas så här(frontend):
 
 
-foreach($bookings as $item){
+    <?php 
 
-echo "<h1> $item[timeStamp] </h1>";
+    $bookings = $dbContext->getPupilbookings(2);
 
 
-} ?>
+    foreach($bookings as $item){
+
+    echo "<h1> $item[timeStamp] </h1>";
+
+
+    } ?>
 
 
 
 
 */
 
-function getPupilbookings($pupilId)
-{
-   
-    $date = date("Y-m-d H:i:s");
-    $prep = $this->pdo->prepare('SELECT * FROM bookings where pupilId=:pupilId AND timeStamp > :date;
-    ');
-   
-    $prep->execute([':pupilId' => $pupilId, ':date' => $date]);
-    return $prep->fetchAll();
-}
+    function getPupilbookings($pupilId)
+    {
+
+        $date = date("Y-m-d H:i:s");
+        $prep = $this->pdo->prepare('SELECT * FROM bookings where pupilId=:pupilId AND timeStamp > :date;
+');
+
+        $prep->execute([':pupilId' => $pupilId, ':date' => $date]);
+        return $prep->fetchAll();
+    }
 
 
 
 
 
 
-/* Hämtar bokningar för lärare(skapa den eftersom den behövs för att skapa dummydata ) */
+    /* Hämtar bokningar för lärare(skapa den eftersom den behövs för att skapa dummydata ) */
 
     function getBooking($teacherId, $timeStamp)
     {
         $prep = $this->pdo->prepare('SELECT * FROM bookings where teacherId=:teacherId AND timeStamp=:timeStamp');
-      /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN  
-       $prep->setFetchMode(PDO::FETCH_CLASS, 'Booking'); */
+        /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN
+        $prep->setFetchMode(PDO::FETCH_CLASS, 'Booking'); */
         $prep->execute(['teacherId' => $teacherId, ':timeStamp' => $timeStamp]);
         return $prep->fetch();
     }
 
-/* Skapar bokning om ingen finns */
+    /* Skapar bokning om ingen finns */
     function createIfNotExisting($teacherId, $pupilId, $active, $timeStamp)
     {
         $existing = $this->getBooking($teacherId, $timeStamp);
@@ -94,78 +94,94 @@ function getPupilbookings($pupilId)
 
 
 
-/* Lägger till bokning -> kan även användas när en ny bokning ska göras */
+    /* Lägger till bokning -> kan även användas när en ny bokning ska göras */
 
     function addBooking($teacherId, $pupilId, $active, $timeStamp)
     {
-        $prep = $this->pdo->prepare('INSERT INTO bookings (teacherId, pupilId, active, timeStamp) VALUES(:teacherId, :pupilId, :active, :timeStamp)');
-           /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN  
-       $prep->setFetchMode(PDO::FETCH_CLASS, 'Booking'); */
-        $prep->execute(['teacherId' => $teacherId, 'pupilId' => $pupilId, 'active' => $active,'timeStamp'=> $timeStamp]);
+        $prep = $this->pdo->prepare('INSERT INTO bookings (teacherId, pupilId, active, timeStamp) VALUES(:teacherId, :pupilId,
+:active, :timeStamp)');
+        /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN
+        $prep->setFetchMode(PDO::FETCH_CLASS, 'Booking'); */
+        $prep->execute(['teacherId' => $teacherId, 'pupilId' => $pupilId, 'active' => $active, 'timeStamp' => $timeStamp]);
         return $this->pdo->lastInsertId();
     }
 
 
 
+    function getAllUnbookedBookings()
+    {
+        $sql = 'SELECT * FROM bookings WHERE active = 1 ORDER BY timeStamp';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    function getTeacherNameById($teacherId)
+    {
+        $sql = 'SELECT name FROM teachers WHERE Id = :teacherId';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':teacherId' => $teacherId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['name'] : null;
+    }
     /* DUMMYDATA */
 
-       function seedfNotSeeded()
-        {
-            static $seeded = false;
-            if ($seeded)
-                return;
-    
-                $this->createIfNotExisting( 1, 2, 1, '2024-05-22 20:00');
-                $this->createIfNotExisting(2, 2, 1, '2024-05-22 17:00');
-                $this->createIfNotExisting( 3, 1, 1, '2024-05-22 19:00');
-                $this->createIfNotExisting( 1, 1, 1, '2024-05-22 18:00');
-                
+    function seedfNotSeeded()
+    {
+        static $seeded = false;
+        if ($seeded)
+            return;
 
-            $seeded = true;
-        }
-    
+        $this->createIfNotExisting(1, 2, 1, '2024-05-22 20:00');
+        $this->createIfNotExisting(2, 2, 1, '2024-05-22 17:00');
+        $this->createIfNotExisting(3, 1, 1, '2024-05-22 19:00');
+        $this->createIfNotExisting(1, 1, 1, '2024-05-22 18:00');
 
+
+        $seeded = true;
+    }
 
 
 
 
 
-/* Dubletter av lärarid + tid kan ej förekomma */
+
+
+    /* Dubletter av lärarid + tid kan ej förekomma */
 
     function initIfNotInitialized()
     {
         static $initialized = false;
         if ($initialized)
             return;
-       
+
         $sql = 'CREATE TABLE IF NOT EXISTS `bookings` (
-            `teacherId` int(10)  NOT NULL, 
-            `pupilId` int(10) NOT NULL, 
-            `active` boolean NOT NULL,
-            `timeStamp` varchar(20) NOT NULL,
-            PRIMARY KEY (`teacherId`, `timeStamp`)
-       
-        )';
-            $this->pdo->exec($sql);
+`teacherId` int(10) NOT NULL,
+`pupilId` int(10) NOT NULL,
+`active` boolean NOT NULL,
+`timeStamp` varchar(20) NOT NULL,
+PRIMARY KEY (`teacherId`, `timeStamp`)
+
+)';
+        $this->pdo->exec($sql);
 
         $sql = 'CREATE TABLE IF NOT EXISTS `teachers` (
-            `Id` INT AUTO_INCREMENT, 
-            `name` VARCHAR(100) NOT NULL, 
-            `email` VARCHAR(100) NOT NULL,
-            `availableTimes` TEXT,
-            PRIMARY KEY (`Id`)       
-        )';
+`Id` INT AUTO_INCREMENT,
+`name` VARCHAR(100) NOT NULL,
+`email` VARCHAR(100) NOT NULL,
+`availableTimes` TEXT,
+PRIMARY KEY (`Id`)
+)';
 
         $this->pdo->exec($sql);
 
 
 
 
-        
+
         $this->usersDatabase->setupUsers();
         $this->usersDatabase->seedUsers();
-       
+
         $initialized = true;
     }
 }
