@@ -124,6 +124,15 @@ class DBContext
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result['username'] : null;
     }
+
+    function getTeacherUsername()
+    {
+        $sql = 'SELECT username FROM users';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $usernames = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $usernames;
+    }
     /* DUMMYDATA */
 
     function seedfNotSeeded()
