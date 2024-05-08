@@ -18,7 +18,7 @@ function mailer($selector, $token, $sub, $urlIn, $body)
     $mail->Port = $smtpport;
     $mail->From = "hello@EventEase.com";
     $mail->FromName = "Hello"; //To address and name 
-    $mail->addAddress($_POST['username']); //Address to which recipient will reply 
+    $mail->addAddress($_POST['email']); //Address to which recipient will reply 
     $mail->addReplyTo("noreply@EventEase.com", "No-Reply");
     $mail->isHTML(true);
     $mail->Subject = $sub;

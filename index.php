@@ -1,9 +1,9 @@
 <?php
 // globala initieringar !
-require_once(dirname(__FILE__) ."/Utils/Router.php");
-require_once("vendor/autoload.php");
+require_once (dirname(__FILE__) . "/Utils/Router.php");
+require_once ("vendor/autoload.php");
 
- 
+
 $router = new Router();
 
 
@@ -13,33 +13,39 @@ $dotenv->load();
 
 
 $router->addRoute('/', function () {
-    require __DIR__ .'/Pages/index.php';
+    require __DIR__ . '/Pages/index.php';
 });
 
 
-$router->addRoute('/login', function() {
+$router->addRoute('/login', function () {
     require __DIR__ . '/Pages/login.php';
 });
 
 
 
 $router->addRoute('/registration', function () {
-    require __DIR__ .'/Pages/registration.php';
+    require __DIR__ . '/Pages/registration.php';
 });
 
 
 $router->addRoute('/verify_email', function () {
-    require __DIR__ .'/functions/verify.php';
+    require __DIR__ . '/functions/verify.php';
 });
 
 
 $router->addRoute('/contact', function () {
-    require __DIR__ .'/Pages/contact.php';
+    require __DIR__ . '/Pages/contact.php';
+});
+
+$router->addRoute('/guidance', function () {
+    require __DIR__ . '/Pages/guidance.php';
 });
 
 
 $router->addRoute('/logout', function () {
     require __DIR__ .'/Pages/logout.php';
 });
+
+
 
 $router->dispatch();
