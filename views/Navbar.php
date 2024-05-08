@@ -17,8 +17,9 @@ if ($auth->isLoggedIn()) {
     <?php if ($auth->isLoggedIn()): ?>
         <div class="loggedInAs">
             <?php echo $usernameString; ?>
+            </div>
             <a href="/logout" class="logout-button">Logga Ut</a>
-        </div>
+        
     <?php else: ?>
         <a href="/login" class="login-button">Logga In</a>
         <a href="/registration" class="register-button">Registrera</a>
