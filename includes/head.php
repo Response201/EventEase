@@ -25,6 +25,7 @@
     <link href="/css/footer.css" rel="stylesheet" />
     <link href="/css/login.css" rel="stylesheet" />
     <link href="/css/registration.css" rel="stylesheet" />
+    <link href="/css/contact.css" rel="stylesheet" />
     <link href="/css/guidance.css" rel="stylesheet" />
 
 </head>
