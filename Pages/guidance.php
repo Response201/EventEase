@@ -3,24 +3,25 @@ ob_start();
 include_once ("Models/Database.php");
 include_once ("Models/Booking.php");
 
+
 $message = '';
 
 $dbContext = new DBContext();
-if (isset($_POST['save'])){
-$teacherId = $_POST['teacherId'] ?? '';
-$timeStamp = $_POST['timeStamp'] ?? '';
+if (isset($_POST['save'])) {
+    $teacherId = $_POST['teacherId'] ?? '';
+    $timeStamp = $_POST['timeStamp'] ?? '';
 
-/* Lägg till när inloggning är implementerat 
+    /* Lägg till när inloggning är implementerat 
 
-$pupilId = $auth->getUserId();
+    $pupilId = $auth->getUserId();
 
-*/
+    */
 
-/* !!! går ej göra bokningen med samma pupilID fler ggr än 1 gång, då får man fel */
-$pupilId = 2;
-$message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp, 1);
+    /* !!! går ej göra bokningen med samma pupilID fler ggr än 1 gång, då får man fel */
+    $pupilId = 2;
+    $message = $dbContext->updateBooking($pupilId, $teacherId, $timeStamp, 1);
 
- }
+}
 
 
 
@@ -69,31 +70,19 @@ $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp, 1);
             <h3>Lediga tider</h3>
 
 
-<!-- TABORT SEN -->
-<p><?php echo"$message";?>  </p>
+            <!-- TABORT SEN -->
+            <p><?php echo "$message"; ?> </p>
 
             <!--Productkort/main-->
             <ul class="timeslot-list">
-                <li class="time-card">
-                    <p>Måndag 23/7</p>
-                    <!--Dynamisk data här-->
-                    <p>Kl 11.30</p>
-                    <!--Dynamisk data här-->
-                    <p>Lärare: Anders Andersson</p>
-                    <!--Dynamisk data här-->
-                    <p>Rum 1</p>
-                    <!--Dynamisk data här-->
-                    <form method='POST' class="button-img"><button class="booking-button" name="save">Boka</button>
-                        <!--Byt mot riktig länk--><img class="teacher-avatar" src="img\teacher.png" alt="teacher">
+                <?php
+                include_once ("components/timecard.php");
+                $bookings = $dbContext->getPupilBookings(2);
 
-
-
-                        <!-- VALUES I INPUTS SKA HA DYNAMISKVARIABEL NÄR KOMPONENT BYGGTS !!INTE HÅRDKODAT VÄRDE SOM NU !! -->
-                        <input type="hidden" name="teacherId"  value="1" />
-                        <input type="hidden" name="timeStamp"  value="2024-05-22 18:00" />
-                        
-                    </form>
-                </li>
+                foreach ($bookings as $booking) {
+                    echo generateTimeCard($booking);
+                }
+                ?>
             </ul>
         </div>
     </div>
