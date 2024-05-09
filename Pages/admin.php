@@ -1,5 +1,24 @@
 <?php
+
 ob_start();
+require_once ("Models/Database.php");
+
+$dbContext = new DBContext();
+
+
+
+$message = '';
+
+$teacherId = $dbContext->getUsersDatabase()->getAuth()->getUserId(); 
+
+if (isset($_POST['save'])){
+    $teacherId = $_POST['teacherId'];
+    $timeStamp = $_POST['timeStamp'] ?? '';
+    $pupilId = $_POST['pupilId'] != null ? /* $dbContext-> getUsersDatabase()->getAuth()->getUserId() */ null : 2;
+    $status = $_POST['status'] ? 0:1;
+    $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp,$status);
+    
+     }
 
 
 
@@ -16,7 +35,21 @@ ob_start();
 <div class="admin-wrapper">
 <div class="admin-container">
 <h2>Möteslista</h2>
-        <table>
+
+
+
+<?php include_once ("components/timecard.php");
+                
+                $bookings = $dbContext-> allActiveBookingsTeacher($teacherId);
+                foreach ($bookings as $booking) {
+                    echo generateTimeCard($booking);
+                } ?>
+
+
+
+
+
+        <!-- <table>
             <tr>
                 <th>Mötesdatum</th>
                 <th>Student</th>
@@ -40,7 +73,7 @@ ob_start();
                 </td>
             </tr>
             <?php endforeach; ?>
-        </table>
+        </table> -->
 </div>
 </div>
 

@@ -49,16 +49,18 @@ class DBContext
 function updateBooking($pupilId, $teacherId, $timeStamp, $status)
 {
  
-   
+  
     $prep = $this->pdo->prepare("UPDATE bookings SET pupilId = :pupilId, status = :status
     WHERE teacherId=:teacherId AND timeStamp=:timeStamp");
 
     $prep->execute([':pupilId' => $pupilId,  ':teacherId' => $teacherId, ':status' =>  $status, ':timeStamp' => $timeStamp, ]);
-    if ($prep->rowCount() > 0) {
+    if ($prep) {
         return 'Bokning genomförd';
     } else {
         return "Det gick inte boka tiden";
     }
+
+  
 }
 
 
@@ -89,6 +91,7 @@ echo "<h1> $item[timeStamp] </h1>";
 
 */
 
+/* kANSKE INTE BEHÖVS LÄNGRE  getPupilbookings */
 function getPupilbookings($pupilId)
 {
    
@@ -101,11 +104,44 @@ function getPupilbookings($pupilId)
 }
 
 
+/* Tar ut boknigar som eleven har samt alla som inte är bokade */
+function allActiveBookings($pupilId){
+
+    $date = date("Y-m-d H:i:s");
+    $prep = $this->pdo->prepare('SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND timeStamp > :date
+    ');
+   
+    $prep->execute([':pupilId' => $pupilId, ':date' => $date]);
+    return $prep->fetchAll();
+
+
+}
+
+/* Tar ut boknigar som en lärare har inlaggda */
+function allActiveBookingsTeacher($teacherId){
+
+    $date = date("Y-m-d H:i:s");
+    $prep = $this->pdo->prepare('SELECT * FROM bookings where teacherId=:teacherId AND timeStamp > :date');
+  
+      $prep->execute(['teacherId' => $teacherId, ':date' => $date]);
+
+    return $prep->fetchAll();
+
+
+}
 
 
 
 
-/* Hämtar bokningar för lärare(skapa den eftersom den behövs för att skapa dummydata ) */
+
+
+
+
+
+
+
+
+/* Hämtar bokningar för lärare + timeStamp(skapa den eftersom den behövs för att skapa dummydata ) */
 
     function getBooking($teacherId, $timeStamp)
     {

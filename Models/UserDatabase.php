@@ -33,6 +33,7 @@ class UserDatabase
 
 
   
+  /* Tror inte denna behövs */
   function loginUser($username, $password)
   {
     

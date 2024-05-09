@@ -42,7 +42,7 @@ $router->addRoute('/guidance', function () {
 });
 
 $router->addRoute('/admin', function () {
-    require __DIR__ .'/Pages/admin.php';
+    require __DIR__ . '/Pages/admin.php';
 });
 
 $router->addRoute('/logout', function () {

@@ -1,13 +1,14 @@
 <?php
-session_start();
+/* session_start(); */
 ob_start();
-require_once(realpath(dirname(__FILE__) . '/../Models/UserDatabase.php'));
-require_once(realpath(dirname(__FILE__) . '/../Models/Database.php'));
-require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
+
+include_once ("Models/Database.php");
+/* require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
 require_once(realpath(dirname(__FILE__) . '/../functions/auth.php'));
-require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php'));
-
-
+require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php')); */
+$message = "";
+$dbContext = new DBContext();
+/* 
 
 $dbContext = new DBContext();
 $pdo = $dbContext->getPdo(); 
@@ -30,17 +31,26 @@ if (isset($_POST['login']) && $username && $password) {
     if ($login_status === true) {
         $_SESSION['username'] = $userDatabase->getAuth()->getUsername();
         $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
-        $_SESSION['role'] = $userDatabase->getAuth()->getRoles();
-        if ($auth->hasRole(\Delight\Auth\Role::ADMIN) ?true:false) {
-            header("Location: /Pages/admin.php"); // Omdirigera admin till en admin-panel
-        } else {
-            header("Location: /Pages/index.php"); // Omdirigera användare till startsidan
-        }
-        exit;
-    } else {
-        $message = $login_status; 
+        $_SESSION['role'] = $userDatabase->getAuth()->getRoles(); */
+        $username = $_POST['username'] ?? '';
+        $password = $_POST['password'] ?? ''; 
+        if (isset($_POST['login']) && $username && $password) {
+
+try {
+    $dbContext->getUsersDatabase()->getAuth()->login($username, $password);
+        
+    if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
+        header("Location: /admin"); // Omdirigera admin till en admin-panel
+    } else if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)) {
+        header("Location: /"); // Omdirigera användare till startsidan
     }
+} catch (\Throwable $th) {
+    $message = "något gick fel";
+    
 }
+
+
+      }
 
 ?>
 
@@ -58,7 +68,7 @@ if (isset($_POST['login']) && $username && $password) {
 <div class="login-wrapper">
 <div class="login-container">
 <h2>Logga In</h2>
-<form  method="post">
+<form  method="POST">
         <label for="username">Användarnamn:</label>
         <input type="text" id="username" name="username" required>
         <br>

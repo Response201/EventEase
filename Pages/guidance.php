@@ -7,26 +7,19 @@ include_once ("Models/Booking.php");
 $message = '';
 
 $dbContext = new DBContext();
-if (isset($_POST['save'])) {
-    $teacherId = $_POST['teacherId'] ?? '';
+
+
+if (isset($_POST['save'])){
+    $teacherId = $_POST['teacherId'];
     $timeStamp = $_POST['timeStamp'] ?? '';
-
-    /* Lägg till när inloggning är implementerat 
-
-    $pupilId = $auth->getUserId();
-
-    */
-
-    /* !!! går ej göra bokningen med samma pupilID fler ggr än 1 gång, då får man fel */
-    $pupilId = 2;
-    $message = $dbContext->updateBooking($pupilId, $teacherId, $timeStamp, 1);
-
-}
+    $pupilId = $_POST['pupilId'] != null ?  null : $dbContext-> getUsersDatabase()->getAuth()->getUserId();
+    $status = $_POST['status'] ? 0:1;
+    $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp,$status);
+    
+     }
 
 
-
-
-
+    
 
 
 ?>
@@ -104,14 +97,14 @@ if (isset($_POST['save'])) {
 
                     
                 include_once ("components/timecard.php");
-                $bookings = $dbContext->getPupilBookings(2);
-
+                $pupilId = $dbContext-> getUsersDatabase()->getAuth()->getUserId();
+                $bookings = $dbContext-> allActiveBookings($pupilId);
                 foreach ($bookings as $booking) {
                     echo generateTimeCard($booking);
                 }
                 
 
-                    $unbookedBookings = $dbContext->getAllUnbookedBookings();
+            /*         $unbookedBookings = $dbContext->getAllUnbookedBookings();
                 
 
 
@@ -125,7 +118,7 @@ if (isset($_POST['save'])) {
                     echo "<div class='button-img'><button class='booking-button'>Boka</button>";
                     echo "<img class='teacher-avatar' src='img\\teacher.png' alt='teacher'></div>";
                     echo "</li>";
-                }
+                } */
             }
                 ?>
             </ul>
