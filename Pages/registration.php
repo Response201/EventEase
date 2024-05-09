@@ -47,7 +47,7 @@ if (isset($_POST['create'])) {
 
     <div class="registration-container">
         <?php include (__DIR__ . '/../views/Navbar.php'); ?>
-
+        <div class="registration-container-form">
         <form class="from" method="POST">
             <section class="fromInputs">
                 <label>Epostadress: </label>
@@ -62,6 +62,7 @@ if (isset($_POST['create'])) {
                 <p><?php echo "$message"; ?></p>
             </section>
         </form>
+</div >
 
 
 
