@@ -30,6 +30,7 @@ if (isset($_POST['login'])) {
     if ($login_status === true) {
         $_SESSION['username'] = $userDatabase->getAuth()->getUsername();
         $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
+        
         header("Location: /Pages/index.php"); 
         exit;
     } else {

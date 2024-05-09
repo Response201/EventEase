@@ -43,7 +43,7 @@
     color: rgb(0, 0, 0);
 }
 
-.auth-links {
+.auth-links-navbar {
     display: flex;
     align-items: center;
     width: 100%;
@@ -56,7 +56,7 @@
 
 }
 
-.auth-links a {
+.auth-links-navbar a {
     color: rgb(246, 243, 243);
     margin-left: 20px;
     text-decoration: none;
