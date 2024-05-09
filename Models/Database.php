@@ -1,5 +1,4 @@
 <?php
-
 require_once ('Models/UserDatabase.php');
 require_once ('Models/Booking.php');
 date_default_timezone_set('Europe/Stockholm');

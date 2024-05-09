@@ -11,26 +11,27 @@ require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php'));
 
 $dbContext = new DBContext();
 $pdo = $dbContext->getPdo(); 
-
 $userDatabase = new UserDatabase($pdo);
-$auth = new \Delight\Auth\Auth($pdo, null, null, false, 2 * 60 * 60);
 $auth = $userDatabase->getAuth();
+$auth = new \Delight\Auth\Auth($pdo, null, null, false, 2 * 60 * 60);
+
 $username = $auth->getUsername();
 $message = "";
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 $result = $userDatabase->loginUser($username, $password);
 
-if (isset($_POST['login'])) {
+if (isset($_POST['login']) && $username && $password) {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';   
     $login_status = $userDatabase->loginUser($username, $password);
+    $auth->loginWithUsername($username, $password);
 
     if ($login_status === true) {
         $_SESSION['username'] = $userDatabase->getAuth()->getUsername();
         $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
         $_SESSION['role'] = $userDatabase->getAuth()->getRoles();
-        if ($auth->hasRole(\Delight\Auth\Role::AUTHOR)) {
+        if ($auth->hasRole(\Delight\Auth\Role::ADMIN) ?true:false) {
             header("Location: /Pages/admin.php"); // Omdirigera admin till en admin-panel
         } else {
             header("Location: /Pages/index.php"); // Omdirigera användare till startsidan

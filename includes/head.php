@@ -28,5 +28,6 @@
     <link href="/css/registration.css" rel="stylesheet" />
     <link href="/css/contact.css" rel="stylesheet" />
     <link href="/css/guidance.css" rel="stylesheet" />
+    <link href="/css/admin.css" rel="stylesheet" />
 
 </head>
