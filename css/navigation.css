@@ -43,7 +43,7 @@
     color: rgb(0, 0, 0);
 }
 
-.auth-links {
+.auth-links-navbar {
     display: flex;
     align-items: center;
     width: 100%;
@@ -53,6 +53,19 @@
     font-family: "Freeman", sans-serif;
     transition: color 0.3s;
     top: 0;
+
+
+}
+
+.auth-links-navbar a {
+    color: rgb(246, 243, 243);
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 1.0rem;
+    transition: color 0.3s;
+=======
+    z-index: 1000;
+
 }
 
 .login-button:hover,

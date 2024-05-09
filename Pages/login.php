@@ -23,14 +23,18 @@ $result = $userDatabase->loginUser($username, $password);
 
 if (isset($_POST['login'])) {
     $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
- 
-    
+    $password = $_POST['password'] ?? '';   
     $login_status = $userDatabase->loginUser($username, $password);
+
     if ($login_status === true) {
         $_SESSION['username'] = $userDatabase->getAuth()->getUsername();
         $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
-        header("Location: /Pages/index.php"); 
+        $_SESSION['role'] = $userDatabase->getAuth()->getRoles();
+        if ($auth->hasRole(\Delight\Auth\Role::AUTHOR)) {
+            header("Location: /Pages/admin.php"); // Omdirigera admin till en admin-panel
+        } else {
+            header("Location: /Pages/index.php"); // Omdirigera användare till startsidan
+        }
         exit;
     } else {
         $message = $login_status; 

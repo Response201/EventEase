@@ -16,7 +16,7 @@ ob_start();
 <div class="landingpage-container">
 <div class="slogan-text"> <h1> EventEase</h1>
 <p>Studera smartare, inte hårdare – Anmäl dig till handledning idag!</p></div>
-<div class="background-container"> </div>
+<div class="landingpage-background-container"> </div>
 </div>
 
 

@@ -13,12 +13,13 @@ if ($auth->isLoggedIn()) {
     $usernameString = "<li>Välkommen " . htmlspecialchars($username) .  "! Är du redo att boka din nästa handledning? </li>";
 }
 ?>
-<div class="auth-links">
+<div class="auth-links-navbar">
     <?php if ($auth->isLoggedIn()): ?>
         <div class="loggedInAs">
             <?php echo $usernameString; ?>
+            </div>
             <a href="/logout" class="logout-button">Logga Ut</a>
-        </div>
+        
     <?php else: ?>
         <a href="/login" class="login-button">Logga In</a>
         <a href="/registration" class="register-button">Registrera</a>
