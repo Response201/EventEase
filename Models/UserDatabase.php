@@ -143,6 +143,8 @@ class UserDatabase
       $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
     }
 
+    
+
 
 }
  }

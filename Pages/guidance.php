@@ -38,6 +38,7 @@ $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp, 1);
 </head>
 
 <body>
+
     <div class="guidance-wrapper">
         <!--Nav-->
         <div class="guidance-nav">
