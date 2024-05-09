@@ -141,8 +141,30 @@ function getPupilbookings($pupilId)
         return $this->pdo->lastInsertId();
     }
 
+    function getAllUnbookedBookings()
+    {
+        $sql = 'SELECT * FROM bookings WHERE active = 1 ORDER BY timeStamp';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function getTeacherNameById($teacherId)
+    {
+        $sql = 'SELECT username FROM users WHERE Id = :teacherId';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':teacherId' => $teacherId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['username'] : null;
+    }
 
-
+    function getTeacherUsername()
+    {
+        $sql = 'SELECT username FROM users';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $usernames = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $usernames;
+    }
 
     /* DUMMYDATA */
 

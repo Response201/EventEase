@@ -26,6 +26,61 @@
     font-weight: 700;
 }
 
+.booking-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.booking-links li {
+    display: inline-block;
+    position: relative;
+}
+
+.booking-links li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.booking-links li:hover ul.dropdown-menu {
+    display: block;
+}
+form {
+    margin: 20px 0;
+}
+.dropdown-btn {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown-btn::after {
+    content: "\25BC";
+    display: inline-block;
+    margin-left: 5px;
+}
+select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+button {
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
 .logo-name{
     display: flex;
     gap: 5px;
