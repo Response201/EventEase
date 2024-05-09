@@ -5,5 +5,5 @@ session_destroy();
 
 
 
-    header('Location: login');
+    header('Location: /Pages/index.php');
     exit;
