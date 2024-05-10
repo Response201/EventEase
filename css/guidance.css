@@ -1,8 +1,7 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 
-.guidance-wrapper{
+.guidance-wrapper {
     min-height: 100vh;
     width: 100%;
     background: linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
@@ -12,6 +11,7 @@
 
 }
 
+/*
 .guidance-nav{
   
     width: 100%;
@@ -25,7 +25,7 @@
     padding-right: 150px;
     font-weight: 700;
 }
-
+*/
 .booking-links {
     list-style-type: none;
     padding: 0;
@@ -47,9 +47,11 @@
 .booking-links li:hover ul.dropdown-menu {
     display: block;
 }
+
 form {
     margin: 20px 0;
 }
+
 .dropdown-btn {
     background-color: #333;
     color: #fff;
@@ -57,11 +59,13 @@ form {
     border: none;
     cursor: pointer;
 }
+
 .dropdown-btn::after {
     content: "\25BC";
     display: inline-block;
     margin-left: 5px;
 }
+
 select {
     padding: 8px;
     font-size: 16px;
@@ -81,27 +85,28 @@ button:hover {
     background-color: #0056b3;
 }
 
-.logo-name{
+.logo-name {
     display: flex;
     gap: 5px;
 }
 
-h2{
+h2 {
     margin: 0;
     font-weight: 700;
 }
 
-h3{
+h3 {
     color: white;
     margin: 0;
     font-weight: 700;
     padding-left: 150px;
     padding-top: 50px;
     padding-bottom: 50px;
-    left: 195px;;
+    left: 195px;
+    ;
 }
 
-.booking-links{
+.booking-links {
     margin: 0;
     display: flex;
     list-style: none;
@@ -109,13 +114,13 @@ h3{
     gap: 75px;
 }
 
-.logo-name-booking-list{
+.logo-name-booking-list {
     display: flex;
     align-items: center;
     gap: 75px;
 }
 
-.profile-links{
+.profile-links {
     margin: 0;
     display: flex;
     list-style: none;
@@ -123,12 +128,12 @@ h3{
     gap: 75px;
 }
 
-.fa-angle-down{
+.fa-angle-down {
     padding-left: 5px;
-    vertical-align:middle;
+    vertical-align: middle;
 }
 
-.timeslot-list{
+.timeslot-list {
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
@@ -138,14 +143,14 @@ h3{
     list-style: none;
 }
 
-.time-card{
+.time-card {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     gap: 8px;
     padding: 15px;
     width: 250px;
-    height: auto;  
+    height: auto;
     background: rgba(255, 255, 255, 0.41);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -153,12 +158,12 @@ h3{
     -webkit-backdrop-filter: blur(14.7px);
 }
 
-p{
+p {
     font-weight: 700;
     margin: 0;
 }
 
-.booking-button{
+.booking-button {
     width: 30%;
     height: 40px;
     border: none;
@@ -167,18 +172,19 @@ p{
     color: white;
     font-weight: 400;
     font-size: 16px;
-    
+
 }
 
-.booking-button:hover{
+.booking-button:hover {
     background-color: #0021c3;
 }
 
-.button-img{
+.button-img {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.teacher-avatar{
+
+.teacher-avatar {
     height: 45px;
 }

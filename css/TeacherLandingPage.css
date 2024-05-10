@@ -47,6 +47,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-family: "Freeman", sans-serif;
+
 }
 
 .teacher-notes p {
@@ -55,12 +56,21 @@
 
 
 .main-teacher {
-    margin-top: 20px;
+    margin-top: 10px;
     position: absolute;
     right: 73%;
-    top: 20%;
+    top: 10%;
     z-index: 0;
 }
+
+
+.main-teacher a {
+    color: black;
+    text-decoration: underline;
+    display: flex;
+    flex-direction: column;
+}
+
 
 #welcome,
 #progress,
@@ -69,7 +79,7 @@
     text-decoration: none;
     background-color: rgba(252, 252, 252, 0.2);
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -78,6 +88,7 @@
 #resources div,
 #communication div {
     margin-bottom: 15px;
+    height: 30px;
 }
 
 .communication a {
