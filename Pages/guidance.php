@@ -90,7 +90,7 @@ $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
 
                     if ( $post === "Alla lärare"  ) {
 
-                        $name = '';
+                        $name = 'Alla lärare';
                     } else if ($_POST['selectedTeacher'] !== "Alla lärare") {
                         $name = $dbContext->getTeacherNameById($_POST['selectedTeacher']);
                     }
