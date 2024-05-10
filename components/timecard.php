@@ -23,7 +23,7 @@ if($consumer && $booking['pupilId'] == null){
 
     $button = "<button class='booking-button' name='save'>Boka</button>";
  }
- else if($booking['pupilId'] && $author || $booking['pupilId'] === $pupilId ){
+ else if($booking['pupilId'] && $author || $booking['pupilId'] == $pupilId ){
  
      $button = "<button class='booking-button' name='save'>Avboka</button>";
   }
