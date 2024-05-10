@@ -37,7 +37,7 @@ if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) {
             <li class="nav-item"><a href=" /meeting" class="nav-link">Lärarpanel</a></li>           
 
             
-        <?php else: ?>
+            <?php elseif ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)): ?>
             <li class="nav-item"><a href="/guidance" class="nav-link">handledning</a></li>
             <li class="nav-item"><a href="/contact" class="nav-link">Kontakta lärare</a></li>
         <?php endif; ?>

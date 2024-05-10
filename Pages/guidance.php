@@ -32,7 +32,7 @@ if (isset($_POST['save'])) {
 </head>
 
 <body>
-
+<?php include(__DIR__ . '/../views/Navbar.php'); ?>
     <div class="guidance-wrapper">
         <!--Nav-->
         <div class="guidance-nav">
