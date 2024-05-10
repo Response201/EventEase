@@ -3,29 +3,23 @@ ob_start();
 include_once ("Models/Database.php");
 include_once ("Models/Booking.php");
 
+
 $message = '';
 
 $dbContext = new DBContext();
+
+
 if (isset($_POST['save'])){
-$teacherId = $_POST['teacherId'] ?? '';
-$timeStamp = $_POST['timeStamp'] ?? '';
-
-/* Lägg till när inloggning är implementerat 
-
-$pupilId = $auth->getUserId();
-
-*/
-
-/* !!! går ej göra bokningen med samma pupilID fler ggr än 1 gång, då får man fel */
-$pupilId = 2;
-$message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp, 1);
-
- }
+    $teacherId = $_POST['teacherId'];
+    $timeStamp = $_POST['timeStamp'] ?? '';
+    $pupilId = $_POST['pupilId'] != null ?  null : $dbContext-> getUsersDatabase()->getAuth()->getUserId();
+    $status = $_POST['status'] ? 0:1;
+    $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp,$status);
+    
+     }
 
 
-
-
-
+    
 
 
 ?>
@@ -47,13 +41,25 @@ $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp, 1);
                     <div class="logo"><img src="img\🦆 icon _cloud_.svg"></div>
                     <h2>EventEase</h2>
                 </div>
+                <!-- class="dropdown-menu" -->
 
                 <ul class="booking-links">
-                    <li><a>Tillgängliga lärare</a><i class="fa-solid fa-angle-down"></i></li>
+                <form method="POST">
+                    <select name="selectedTeacher">
+                        <option value="">Alla lärare</option>
+                        <?php
+                        $teacherUsernames = $dbContext->getTeacherUsername();
+                        foreach ($teacherUsernames as $username) {
+                            echo '<option value="' . $username . '">' . $username . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <button type="submit">Visa tider</button>
+                </form>
                     <!--Byt mot riktig länk-->
-                    <li><a>Hitta lediga tider</a></li>
+                    <li><a href="#">Hitta lediga tider</a></li>
                     <!--Byt mot riktig länk-->
-                    <li><a>Mina bokningar</a></li>
+                    <li><a href="#">Mina bokningar</a></li>
                     <!--Byt mot riktig länk-->
                 </ul>
             </div>
@@ -67,34 +73,54 @@ $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp, 1);
         </div>
 
         <div class="content-container">
-            <h3>Lediga tider</h3>
+            <h3>Lediga tider för:
+        <?php if (isset($_POST['selectedTeacher']) && !empty($_POST['selectedTeacher'])): ?>
+            <strong><?php echo $_POST['selectedTeacher']; ?></strong>
+        <?php endif; ?></h3>
 
 
-<!-- TABORT SEN -->
-<p><?php echo"$message";?>  </p>
+            <!-- TABORT SEN -->
+            <p><?php echo "$message"; ?> </p>
 
             <!--Productkort/main-->
             <ul class="timeslot-list">
-                <li class="time-card">
-                    <p>Måndag 23/7</p>
-                    <!--Dynamisk data här-->
-                    <p>Kl 11.30</p>
-                    <!--Dynamisk data här-->
-                    <p>Lärare: Anders Andersson</p>
-                    <!--Dynamisk data här-->
-                    <p>Rum 1</p>
-                    <!--Dynamisk data här-->
-                    <form method='POST' class="button-img"><button class="booking-button" name="save">Boka</button>
-                        <!--Byt mot riktig länk--><img class="teacher-avatar" src="img\teacher.png" alt="teacher">
+                <?php
+                if (isset($_POST['selectedTeacher']) && !empty($_POST['selectedTeacher'])) {
+                    $selectedTeacher = $_POST['selectedTeacher'];
+                        echo "<li class='time-card'>";
+                        echo "<p>Lärare: " . htmlspecialchars($selectedTeacher) . "</p>";
+                        echo "<p>Rum 1</p>";
+                        echo "<div class='button-img'><button class='booking-button'>Boka</button>";
+                        echo "<img class='teacher-avatar' src='img\\teacher.png' alt='teacher'></div>";
+                        echo "</li>";
+                } else {
+
+                    
+                include_once ("components/timecard.php");
+                $pupilId = $dbContext-> getUsersDatabase()->getAuth()->getUserId();
+                $bookings = $dbContext-> allActiveBookings($pupilId);
+                foreach ($bookings as $booking) {
+                    echo generateTimeCard($booking);
+                }
+                
+
+            /*         $unbookedBookings = $dbContext->getAllUnbookedBookings();
+                
 
 
-
-                        <!-- VALUES I INPUTS SKA HA DYNAMISKVARIABEL NÄR KOMPONENT BYGGTS !!INTE HÅRDKODAT VÄRDE SOM NU !! -->
-                        <input type="hidden" name="teacherId"  value="1" />
-                        <input type="hidden" name="timeStamp"  value="2024-05-22 18:00" />
-                        
-                    </form>
-                </li>
+                foreach ($unbookedBookings as $booking) {
+                    $teacherName = $dbContext->getTeacherNameById($booking['teacherId']);
+                    echo "<li class='time-card'>";
+                    echo "<p>" . date("l d/m", strtotime($booking['timeStamp'])) . "</p>";
+                    echo "<p>Kl " . date("H:i", strtotime($booking['timeStamp'])) . "</p>";
+                    echo "<p>Lärare: " . htmlspecialchars($teacherName) . "</p>";
+                    echo "<p>Rum 1</p>";
+                    echo "<div class='button-img'><button class='booking-button'>Boka</button>";
+                    echo "<img class='teacher-avatar' src='img\\teacher.png' alt='teacher'></div>";
+                    echo "</li>";
+                } */
+            }
+                ?>
             </ul>
         </div>
     </div>
