@@ -1,4 +1,4 @@
-.admin-wrapper {
+.teacher-landingpage-wrapper {
 
     display: flex;
     justify-content: center;
@@ -13,20 +13,20 @@
 
 }
 
-.admin-wrapper h1 {
+.teacher-landingpage-wrapper h1 {
     position: absolute;
     font-size: 3em;
     color: black;
     text-align: center;
     top: 15%;
-    left: 45%;
+    left: 40%;
     text-transform: uppercase;
 
 }
 
 
 
-.admin-notes {
+.teacher-notes {
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
     background-size: 100% 40px;
 
@@ -41,7 +41,7 @@
     height: 70%;
     position: absolute;
     top: 22%;
-    left: 35%;
+    left: 30%;
     background-color: rgba(252, 252, 252, 0.2);
     color: black;
     border-radius: 8px;
@@ -49,15 +49,15 @@
     font-family: "Freeman", sans-serif;
 }
 
-.admin-notes p {
+.teacher-notes p {
     margin: 0;
 }
 
 
-.main-teatcher {
+.main-teacher {
     margin-top: 20px;
     position: absolute;
-    right: 70%;
+    right: 73%;
     top: 20%;
     z-index: 0;
 }
@@ -83,4 +83,50 @@
 .communication a {
     color: black;
     text-decoration: none;
+}
+
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 20%;
+    height: 80%;
+    width: 20%;
+    background-color: rgba(252, 252, 252, 0.2);
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    text-align: right;
+}
+
+.sidebar h1 {
+    background: linear-gradient(to right, rgb(79, 110, 156) 0%, #eee 60%, hsla(283, 33%, 46%, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+    text-transform: uppercase;
+    position: absolute;
+    top: 90%;
+    left: 20%;
+}
+
+.sidebar h2 {
+    margin-top: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    color: #333;
 }

@@ -29,6 +29,6 @@
     <link href="/css/contact.css" rel="stylesheet" />
     <link href="/css/guidance.css" rel="stylesheet" />
     <link href="/css/admin.css" rel="stylesheet" />
-    <link href="/css/TeacherLandingPage.css" rel="stylesheet" />
+    <link href="/css/teacherLandingPage.css" rel="stylesheet" />
 
 </head>

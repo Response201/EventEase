@@ -13,16 +13,42 @@ ob_start();
 
 <body>
 <?php include(__DIR__ . '/../views/Navbar.php'); ?>
-<div class="admin-wrapper">
+<div class="teacher-landingpage-wrapper">
     <h1>Lärarpanelen</h1>
+    <div class="sidebar">
+    <nav>
 
-<div class="admin-notes">
+        <h2>Uppgifter och prov</h2>
+        <ul>
+            <li><a href="#">Skapa och redigera uppgifter</a></li>
+            <li><a href="#">Skapa och redigera prov</a></li>
+        </ul>
+        <h2>Klasshantering</h2>
+        <ul>
+            <li><a href="#">Hantera klasser</a></li>
+            <li><a href="#">Skapa och redigera kurser</a></li>
+        </ul>
+        <h2>Elevprestationer</h2>
+        <ul>
+            <li><a href="#">Granska elevprestationer</a></li>
+            <li><a href="#">Se elevrapporter</a></li>
+        </ul>
+
+        <h2>Övrigt</h2>
+        <ul>
+            <li><a href="#">Inställningar</a></li>
+            <li><a href="#">Hjälp</a></li>
+        </ul>
+        <h1> EventEase</h1>
+    </nav>
+</div>
+    <div class="teacher-notes">
     
     <h2>Noteringar</h2>
     <p>Det finns inga noteringar för idag.</p>
     
-</div>
-<div class="main-teatcher">
+    </div>
+    <div class="main-teacher">
         <section id="welcome">
             <h2>Din dagliga översikt</h2>
             <div id="todays-sessions">
