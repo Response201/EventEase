@@ -45,6 +45,11 @@ $router->addRoute('/admin', function () {
     require __DIR__ . '/Pages/admin.php';
 });
 
+$router->addRoute('/meeting', function () {
+    require __DIR__ .'/Pages/teacherLandingPage.php';
+});
+
+
 $router->addRoute('/logout', function () {
     require __DIR__ .'/Pages/logout.php';
 });

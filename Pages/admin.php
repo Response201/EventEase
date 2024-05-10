@@ -1,5 +1,10 @@
 <?php
 
+session_start();
+ob_start();
+require_once(realpath(dirname(__FILE__) . '/../Models/Database.php'));
+=======
+
 ob_start();
 require_once ("Models/Database.php");
 
@@ -22,7 +27,9 @@ if (isset($_POST['save'])){
 
 
 
+
 ?>
+
 <head>
 
     <title>Lärare</title>
@@ -32,8 +39,10 @@ if (isset($_POST['save'])){
 
 <body>
 <?php include(__DIR__ . '/../views/Navbar.php'); ?>
-<div class="admin-wrapper">
+<div class="meeting-wrapper">
 <div class="admin-container">
+
+
 <h2>Möteslista</h2>
 
 
@@ -74,8 +83,8 @@ if (isset($_POST['save'])){
             </tr>
             <?php endforeach; ?>
         </table> -->
-</div>
-</div>
 
+</div>
+</div>
 <?php include(__DIR__ . '/../views/Footer.php'); ?>
 </body>

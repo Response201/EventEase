@@ -31,6 +31,7 @@ if (isset($_POST['login']) && $username && $password) {
     if ($login_status === true) {
         $_SESSION['username'] = $userDatabase->getAuth()->getUsername();
         $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
+
         $_SESSION['role'] = $userDatabase->getAuth()->getRoles(); */
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? ''; 
@@ -40,9 +41,10 @@ try {
     $dbContext->getUsersDatabase()->getAuth()->login($username, $password);
         
     if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
-        header("Location: /admin"); // Omdirigera admin till en admin-panel
+         header("Location: /Pages/teacherLandingPage.php");
     } else if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)) {
         header("Location: /"); // Omdirigera användare till startsidan
+
     }
 } catch (\Throwable $th) {
     $message = "något gick fel";

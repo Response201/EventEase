@@ -143,7 +143,7 @@ function allActiveBookingsTeacher($teacherId){
 
 /* Hämtar bokningar för lärare + timeStamp(skapa den eftersom den behövs för att skapa dummydata ) */
 
-    function getBooking($teacherId, $timeStamp)
+    public function getBooking($teacherId, $timeStamp)
     {
         $prep = $this->pdo->prepare('SELECT * FROM bookings where teacherId=:teacherId AND timeStamp=:timeStamp');
       /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN  
@@ -192,6 +192,7 @@ function allActiveBookingsTeacher($teacherId){
         return $result ? $result['username'] : null;
     }
 
+
     function getTeacherUsername()
     {
         $sql = 'SELECT username FROM users';
@@ -200,6 +201,7 @@ function allActiveBookingsTeacher($teacherId){
         $usernames = $stmt->fetchAll(PDO::FETCH_COLUMN);
         return $usernames;
     }
+
 
     /* DUMMYDATA */
 
