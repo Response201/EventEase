@@ -9,17 +9,17 @@ $message = '';
 $dbContext = new DBContext();
 
 
-if (isset($_POST['save'])){
+if (isset($_POST['save'])) {
     $teacherId = $_POST['teacherId'];
     $timeStamp = $_POST['timeStamp'] ?? '';
-    $pupilId = $_POST['pupilId'] != null ?  null : $dbContext-> getUsersDatabase()->getAuth()->getUserId();
-    $status = $_POST['status'] ? 0:1;
-    $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp,$status);
-    
-     }
+    $pupilId = $_POST['pupilId'] != null ? null : $dbContext->getUsersDatabase()->getAuth()->getUserId();
+    $status = $_POST['status'] ? 0 : 1;
+    $message = $dbContext->updateBooking($pupilId, $teacherId, $timeStamp, $status);
+
+}
 
 
-    
+
 
 
 ?>
@@ -41,27 +41,7 @@ if (isset($_POST['save'])){
                     <div class="logo"><img src="img\🦆 icon _cloud_.svg"></div>
                     <h2>EventEase</h2>
                 </div>
-                <!-- class="dropdown-menu" -->
 
-                <ul class="booking-links">
-                <form method="POST">
-                    <select name="selectedTeacher">
-                        <option value="">Alla lärare</option>
-                        <?php
-                        $teacherUsernames = $dbContext->getTeacherUsername();
-                        foreach ($teacherUsernames as $username) {
-                            echo '<option value="' . $username . '">' . $username . '</option>';
-                        }
-                        ?>
-                    </select>
-                    <button type="submit">Visa tider</button>
-                </form>
-                    <!--Byt mot riktig länk-->
-                    <li><a href="#">Hitta lediga tider</a></li>
-                    <!--Byt mot riktig länk-->
-                    <li><a href="#">Mina bokningar</a></li>
-                    <!--Byt mot riktig länk-->
-                </ul>
             </div>
 
             <ul class="profile-links">
@@ -71,12 +51,55 @@ if (isset($_POST['save'])){
                 <!--Byt mot riktig länk-->
             </ul>
         </div>
+        <ul class="booking-links">
+                    <form method="POST">
+                        <select name="selectedTeacher" onchange="this.form.submit()">
+                            <option value="Alla lärare">Alla lärare</option>
+                            <?php
+                            $teacherUsernames = $dbContext->getAllTeachers();
+                            foreach ($teacherUsernames as $item) {
+                                echo '<option class="form-control" value="' . $item['id'] . '"';
+                                if (isset($_POST['selectedTeacher']) && $_POST['selectedTeacher'] == $item['id']) {
+                                    echo ' selected';
+                                }
+                                echo '>' . $item['username'] . '</option>';
+                            }
 
+
+                            ?>
+
+                        </select>
+                        <!--     <button type="submit">Visa tider</button> -->
+                    </form>
+                   
+                </ul>
         <div class="content-container">
             <h3>Lediga tider för:
-        <?php if (isset($_POST['selectedTeacher']) && !empty($_POST['selectedTeacher'])): ?>
-            <strong><?php echo $_POST['selectedTeacher']; ?></strong>
-        <?php endif; ?></h3>
+
+
+
+
+
+
+                <strong>
+
+
+
+                    <?php
+$post = $_POST['selectedTeacher'] ?? 'Alla lärare';
+
+                    if ( $post === "Alla lärare"  ) {
+
+                        $name = '';
+                    } else if ($_POST['selectedTeacher'] !== "Alla lärare") {
+                        $name = $dbContext->getTeacherNameById($_POST['selectedTeacher']);
+                    }
+
+                    echo "$name"; ?>
+
+                </strong>
+
+            </h3>
 
 
             <!-- TABORT SEN -->
@@ -84,42 +107,20 @@ if (isset($_POST['save'])){
 
             <!--Productkort/main-->
             <ul class="timeslot-list">
-                <?php
-                if (isset($_POST['selectedTeacher']) && !empty($_POST['selectedTeacher'])) {
-                    $selectedTeacher = $_POST['selectedTeacher'];
-                        echo "<li class='time-card'>";
-                        echo "<p>Lärare: " . htmlspecialchars($selectedTeacher) . "</p>";
-                        echo "<p>Rum 1</p>";
-                        echo "<div class='button-img'><button class='booking-button'>Boka</button>";
-                        echo "<img class='teacher-avatar' src='img\\teacher.png' alt='teacher'></div>";
-                        echo "</li>";
-                } else {
 
-                    
+                <?php
+
                 include_once ("components/timecard.php");
-                $pupilId = $dbContext-> getUsersDatabase()->getAuth()->getUserId();
-                $bookings = $dbContext-> allActiveBookings($pupilId);
+                $pupilId = $dbContext->getUsersDatabase()->getAuth()->getUserId();
+                $teacher = $_POST['selectedTeacher'] ?? 'Alla lärare';
+                $bookings = $dbContext->allActiveBookings($teacher, $pupilId);
                 foreach ($bookings as $booking) {
                     echo generateTimeCard($booking);
+
+
+
+
                 }
-                
-
-            /*         $unbookedBookings = $dbContext->getAllUnbookedBookings();
-                
-
-
-                foreach ($unbookedBookings as $booking) {
-                    $teacherName = $dbContext->getTeacherNameById($booking['teacherId']);
-                    echo "<li class='time-card'>";
-                    echo "<p>" . date("l d/m", strtotime($booking['timeStamp'])) . "</p>";
-                    echo "<p>Kl " . date("H:i", strtotime($booking['timeStamp'])) . "</p>";
-                    echo "<p>Lärare: " . htmlspecialchars($teacherName) . "</p>";
-                    echo "<p>Rum 1</p>";
-                    echo "<div class='button-img'><button class='booking-button'>Boka</button>";
-                    echo "<img class='teacher-avatar' src='img\\teacher.png' alt='teacher'></div>";
-                    echo "</li>";
-                } */
-            }
                 ?>
             </ul>
         </div>
