@@ -17,18 +17,17 @@ ob_start();
     <h1>Lärarpanelen</h1>
     <div class="sidebar">
     <nav>
-        <h2>Klasshantering</h2>
-        <ul>
-            <li><a href="#">Hantera klasser</a></li>
-            <li><a href="#">Skapa och redigera kurser</a></li>
-        </ul>
 
         <h2>Uppgifter och prov</h2>
         <ul>
             <li><a href="#">Skapa och redigera uppgifter</a></li>
             <li><a href="#">Skapa och redigera prov</a></li>
         </ul>
-
+        <h2>Klasshantering</h2>
+        <ul>
+            <li><a href="#">Hantera klasser</a></li>
+            <li><a href="#">Skapa och redigera kurser</a></li>
+        </ul>
         <h2>Elevprestationer</h2>
         <ul>
             <li><a href="#">Granska elevprestationer</a></li>

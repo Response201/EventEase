@@ -19,7 +19,7 @@
     color: black;
     text-align: center;
     top: 15%;
-    left: 45%;
+    left: 40%;
     text-transform: uppercase;
 
 }
@@ -41,7 +41,7 @@
     height: 70%;
     position: absolute;
     top: 22%;
-    left: 35%;
+    left: 30%;
     background-color: rgba(252, 252, 252, 0.2);
     color: black;
     border-radius: 8px;
@@ -57,7 +57,7 @@
 .main-teacher {
     margin-top: 20px;
     position: absolute;
-    right: 70%;
+    right: 73%;
     top: 20%;
     z-index: 0;
 }
@@ -101,13 +101,14 @@
 }
 
 .sidebar h1 {
-    background: -webkit-linear-gradient(#eee 40%, hsla(283, 33%, 46%, 1));
+    background: linear-gradient(to right, rgb(79, 110, 156) 0%, #eee 60%, hsla(283, 33%, 46%, 1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 30px;
+    font-size: 40px;
     text-transform: uppercase;
     position: absolute;
-    top: 20%;
+    top: 90%;
+    left: 20%;
 }
 
 .sidebar h2 {
