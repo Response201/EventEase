@@ -3,7 +3,7 @@
 session_start();
 ob_start();
 require_once(realpath(dirname(__FILE__) . '/../Models/Database.php'));
-=======
+
 
 ob_start();
 require_once ("Models/Database.php");
