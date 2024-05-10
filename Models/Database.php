@@ -113,17 +113,19 @@ function allActiveBookings($teacherId,$pupilId){
     $date = date("Y-m-d H:i:s");
 
 if($teacherId === 'Alla lärare'){
-    $sql ='SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND timeStamp > :date';
+    $sql ='SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND timeStamp > :date  ORDER BY timeStamp';
      $prep = $this->pdo->prepare($sql);
      $prep->execute([':pupilId' => $pupilId, ':date' => $date]);
 }else{
-    $sql ='SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND teacherId = :teacherId  AND timeStamp > :date';
+    $sql ='SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND teacherId = :teacherId  AND timeStamp > :date ORDER BY timeStamp';
     $prep = $this->pdo->prepare($sql);
     $prep->execute([':pupilId' => $pupilId, ':teacherId' => $teacherId, ':date' => $date]);
 
 }
 
-    
+
+
+
     return $prep->fetchAll();
 
 
@@ -213,15 +215,23 @@ function allActiveBookingsTeacher($teacherId){
 
        function seedfNotSeeded()
         {
+            
             static $seeded = false;
             if ($seeded)
                 return;
-    
-                $this->createIfNotExisting( 1, null, 1,0, '2024-05-22 20:00');
-                $this->createIfNotExisting(2, null, 1,0, '2024-05-22 17:00');
-                $this->createIfNotExisting( 3, null, 1,0, '2024-05-22 19:00');
-                $this->createIfNotExisting( 1, null, 1,0, '2024-05-22 18:00');
-                
+                $date = date("Y-m-d");
+                /* skapar nya tider för att boka lärare utifrån dagens datum */
+         
+
+                for ($i = 1; $i <= 3; $i++) {
+                    $this->createIfNotExisting( $i, null, 1,0,"$date 10:00");
+                    $this->createIfNotExisting($i, null, 1,0, "$date 12:00");
+                    $this->createIfNotExisting( $i, null, 1,0, "$date 14:00");
+                    $this->createIfNotExisting( $i, null, 1,0, "$date 16:00");
+                }
+
+
+
 
             $seeded = true;
         }
