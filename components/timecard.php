@@ -2,7 +2,7 @@
 include_once ("Models/Database.php");
 
 
-function generateTimeCard($booking)
+function generateTimeCard($booking, $dropdown='Alla lärare')
 {
     $dbContext = new DBContext();
     $date = new DateTime($booking['timeStamp']);
@@ -23,7 +23,7 @@ if($consumer && $booking['pupilId'] == null){
 
     $button = "<button class='booking-button' name='save'>Boka</button>";
  }
- else if($booking['pupilId'] && $author || $booking['pupilId'] === $pupilId ){
+ else if($booking['pupilId'] && $author || $booking['pupilId'] == $pupilId ){
  
      $button = "<button class='booking-button' name='save'>Avboka</button>";
   }
@@ -53,6 +53,7 @@ if($consumer && $booking['pupilId'] == null){
             <input type='hidden' name='timeStamp' value='{$booking['timeStamp']}' />
             <input type='hidden' name='pupilId' value='{$booking['pupilId']}' />
             <input type='hidden' name='status' value='{$booking['status']}' />
+            <input type='hidden' name='selectedTeacher' value='{$dropdown}' />
         </form>
     </li>
     ";

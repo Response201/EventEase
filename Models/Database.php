@@ -1,3 +1,6 @@
+
+
+
 <?php
 require_once ('Models/UserDatabase.php');
 require_once ('Models/Booking.php');
@@ -105,13 +108,24 @@ function getPupilbookings($pupilId)
 
 
 /* Tar ut boknigar som eleven har samt alla som inte är bokade */
-function allActiveBookings($pupilId){
+function allActiveBookings($teacherId,$pupilId){
 
     $date = date("Y-m-d H:i:s");
-    $prep = $this->pdo->prepare('SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND timeStamp > :date
-    ');
-   
-    $prep->execute([':pupilId' => $pupilId, ':date' => $date]);
+
+if($teacherId === 'Alla lärare'){
+    $sql ='SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND timeStamp > :date  ORDER BY timeStamp';
+     $prep = $this->pdo->prepare($sql);
+     $prep->execute([':pupilId' => $pupilId, ':date' => $date]);
+}else{
+    $sql ='SELECT * FROM bookings where (pupilId = :pupilId OR pupilId IS NULL) AND teacherId = :teacherId  AND timeStamp > :date ORDER BY timeStamp';
+    $prep = $this->pdo->prepare($sql);
+    $prep->execute([':pupilId' => $pupilId, ':teacherId' => $teacherId, ':date' => $date]);
+
+}
+
+
+
+
     return $prep->fetchAll();
 
 
@@ -176,46 +190,48 @@ function allActiveBookingsTeacher($teacherId){
         return $this->pdo->lastInsertId();
     }
 
-    function getAllUnbookedBookings()
-    {
-        $sql = 'SELECT * FROM bookings WHERE active = 1 ORDER BY timeStamp';
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+
     function getTeacherNameById($teacherId)
     {
-        $sql = 'SELECT username FROM users WHERE Id = :teacherId';
+        $sql = 'SELECT * FROM users WHERE id = :teacherId';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':teacherId' => $teacherId]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
         return $result ? $result['username'] : null;
     }
-
-
-    function getTeacherUsername()
+    function getAllTeachers()
     {
-        $sql = 'SELECT username FROM users';
+        $sql = 'SELECT * FROM users WHERE roles_mask = 2';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $usernames = $stmt->fetchAll(PDO::FETCH_COLUMN);
-        return $usernames;
+        return $stmt->fetchall();
     }
+
+
+  
 
 
     /* DUMMYDATA */
 
        function seedfNotSeeded()
         {
+            
             static $seeded = false;
             if ($seeded)
                 return;
-    
-                $this->createIfNotExisting( 1, null, 1,0, '2024-05-22 20:00');
-                $this->createIfNotExisting(2, null, 1,0, '2024-05-22 17:00');
-                $this->createIfNotExisting( 3, null, 1,0, '2024-05-22 19:00');
-                $this->createIfNotExisting( 1, null, 1,0, '2024-05-22 18:00');
-                
+                $date = date("Y-m-d");
+                /* skapar nya tider för att boka lärare utifrån dagens datum */
+         
+
+                for ($i = 1; $i <= 3; $i++) {
+                    $this->createIfNotExisting( $i, null, 1,0,"$date 10:00");
+                    $this->createIfNotExisting($i, null, 1,0, "$date 12:00");
+                    $this->createIfNotExisting( $i, null, 1,0, "$date 14:00");
+                    $this->createIfNotExisting( $i, null, 1,0, "$date 16:00");
+                }
+
+
+
 
             $seeded = true;
         }
@@ -266,3 +282,8 @@ function allActiveBookingsTeacher($teacherId){
     }
 }
 ?>
+
+
+
+
+
