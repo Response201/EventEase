@@ -18,7 +18,7 @@ $dbContext = new DBContext();
 
 <html>
 <body>
-<?php include(__DIR__ . '/../views/Navbar.php'); ?>
+<?php include('./views/Navbar.php'); ?>
 
 
 <div class="contact-container">

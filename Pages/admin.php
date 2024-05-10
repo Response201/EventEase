@@ -1,8 +1,7 @@
 <?php
 
 session_start();
-ob_start();
-require_once(realpath(dirname(__FILE__) . '/../Models/Database.php'));
+
 
 
 ob_start();
@@ -38,7 +37,7 @@ if (isset($_POST['save'])){
 </head>
 
 <body>
-<?php include(__DIR__ . '/../views/Navbar.php'); ?>
+<?php include('./views/Navbar.php'); ?>
 <div class="meeting-wrapper">
 <div class="admin-container">
 

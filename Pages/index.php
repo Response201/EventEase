@@ -1,6 +1,6 @@
 <?php
 ob_start();
-
+include_once ("Models/Database.php");
  ?>
 <!DOCTYPE html>
 
@@ -12,7 +12,7 @@ ob_start();
 
 <body>
 
-<?php include(__DIR__ . '/../views/Navbar.php'); ?>
+<?php include('./views/Navbar.php'); ?>
 <div class="landingpage-container">
 <div class="slogan-text"> <h1> EventEase</h1>
 <p>Studera smartare, inte hårdare – Anmäl dig till handledning idag!</p></div>

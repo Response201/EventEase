@@ -41,7 +41,7 @@ try {
     $dbContext->getUsersDatabase()->getAuth()->login($username, $password);
         
     if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
-         header("Location: /Pages/teacherLandingPage.php");
+         header("Location: /meeting");
     } else if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)) {
         header("Location: /"); // Omdirigera användare till startsidan
 

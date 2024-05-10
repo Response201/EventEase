@@ -1,17 +1,13 @@
 <?php
-require_once(realpath(dirname(__FILE__) . '/../Models/UserDatabase.php'));
-require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
-
-$pdo = new PDO('mysql:host=localhost;dbname=eventease', 'root', 'root'); 
-$userDatabase = new UserDatabase($pdo);
-$auth = $userDatabase->getAuth();
+include_once ('./Models/Database.php');
+$dbContext = new DBContext();
 
 $usernameString = "";
 
-if ($auth->isLoggedIn()) {
-    $username = $auth->getUsername();
+if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) {
+    $username = $dbContext->getUsersDatabase()->getAuth()->getUsername();
 
-    if ($auth->hasRole(\Delight\Auth\Role::ADMIN)) {
+    if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
         $usernameString = "<li>Välkommen " . htmlspecialchars($username) . " - handledning idag, framgång imorgon</li>";
     } else {
     $usernameString = "<li>Välkommen " . htmlspecialchars($username) .  "! Är du redo att boka din nästa handledning? </li>";
@@ -19,7 +15,7 @@ if ($auth->isLoggedIn()) {
 }
 ?>
 <div class="auth-links-navbar">
-    <?php if ($auth->isLoggedIn()): ?>
+    <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()): ?>
         <div class="loggedInAs">
             <?php echo $usernameString; ?>
             </div>
@@ -36,9 +32,9 @@ if ($auth->isLoggedIn()) {
         <a href="/" class="nav-link">
             <span class="iconify icon-home" data-icon="fluent-emoji:cloud"></span>
         </a>
-        <?php if ($auth->isLoggedIn() && $auth->hasRole(\Delight\Auth\Role::ADMIN)): ?>
+        <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn() && $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)): ?>
             <li class="nav-item"><a href="/admin" class="nav-link">Inbokad handledning</a></li>
-            <li class="nav-item"><a href=" /Pages/teacherLandingPage.php" class="nav-link">Lärarpanel</a></li>           
+            <li class="nav-item"><a href=" /meeting" class="nav-link">Lärarpanel</a></li>           
 
             
         <?php else: ?>
