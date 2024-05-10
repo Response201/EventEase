@@ -10,7 +10,12 @@ $usernameString = "";
 
 if ($auth->isLoggedIn()) {
     $username = $auth->getUsername();
+
+    if ($auth->hasRole(\Delight\Auth\Role::ADMIN)) {
+        $usernameString = "<li>Välkommen " . htmlspecialchars($username) . " - handledning idag, framgång imorgon</li>";
+    } else {
     $usernameString = "<li>Välkommen " . htmlspecialchars($username) .  "! Är du redo att boka din nästa handledning? </li>";
+}
 }
 ?>
 <div class="auth-links-navbar">
@@ -30,13 +35,16 @@ if ($auth->isLoggedIn()) {
     <ul class="nav-list">
         <a href="/" class="nav-link">
             <span class="iconify icon-home" data-icon="fluent-emoji:cloud"></span>
-
         </a>
-        <li class="nav-item"><a href="/guidance" class="nav-link">handledning</a></li>
-        <li class="nav-item"><a href="/contact" class="nav-link">Kontakta lärare</a></li>
+        <?php if ($auth->isLoggedIn() && $auth->hasRole(\Delight\Auth\Role::ADMIN)): ?>
+            <li class="nav-item"><a href="/admin" class="nav-link">Inbokad handledning</a></li>
+            <li class="nav-item"><a href=" /Pages/teacherLandingPage.php" class="nav-link">Lärarpanel</a></li>           
 
-    
-
+            
+        <?php else: ?>
+            <li class="nav-item"><a href="/guidance" class="nav-link">handledning</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link">Kontakta lärare</a></li>
+        <?php endif; ?>
     </ul>
 </nav>
 

@@ -32,7 +32,7 @@ if (isset($_POST['login']) && $username && $password) {
         $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
         $_SESSION['role'] = $userDatabase->getAuth()->getRoles();
         if ($auth->hasRole(\Delight\Auth\Role::ADMIN) ?true:false) {
-            header("Location: /Pages/admin.php"); // Omdirigera admin till en admin-panel
+            header("Location: /Pages/teacherLandingPage.php");
         } else {
             header("Location: /Pages/index.php"); // Omdirigera användare till startsidan
         }

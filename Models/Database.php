@@ -107,7 +107,7 @@ function getPupilbookings($pupilId)
 
 /* Hämtar bokningar för lärare(skapa den eftersom den behövs för att skapa dummydata ) */
 
-    function getBooking($teacherId, $timeStamp)
+    public function getBooking($teacherId, $timeStamp)
     {
         $prep = $this->pdo->prepare('SELECT * FROM bookings where teacherId=:teacherId AND timeStamp=:timeStamp');
       /* SENARE -> FIXA SÅ KLASSEN MATCHAR FETCHEN  
@@ -141,7 +141,14 @@ function getPupilbookings($pupilId)
     }
 
 
+    function getTeacherBookings($teacherId) {
+        $sql = "SELECT * FROM bookings WHERE teacherId = :teacherId AND timeStamp >= NOW() ORDER BY timeStamp";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':teacherId' => $teacherId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    
 
     /* DUMMYDATA */
 

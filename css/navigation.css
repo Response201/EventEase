@@ -8,7 +8,10 @@
     position: absolute;
     z-index: 1000;
     font-family: "Freeman", sans-serif;
+
 }
+
+
 
 .loggedInAs {
     list-style: none;
@@ -63,7 +66,7 @@
     text-decoration: none;
     font-size: 1.0rem;
     transition: color 0.3s;
-=======
+
     z-index: 1000;
 
 }
