@@ -102,8 +102,7 @@ $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
             </h3>
 
 
-            <!-- TABORT SEN -->
-            <p><?php echo "$message"; ?> </p>
+        
 
             <!--Productkort/main-->
             <ul class="timeslot-list">
@@ -115,7 +114,7 @@ $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
                 $teacher = $_POST['selectedTeacher'] ?? 'Alla lärare';
                 $bookings = $dbContext->allActiveBookings($teacher, $pupilId);
                 foreach ($bookings as $booking) {
-                    echo generateTimeCard($booking);
+                    echo generateTimeCard($booking, $_POST['selectedTeacher'] ?? 'Alla lärare' );
 
 
 
