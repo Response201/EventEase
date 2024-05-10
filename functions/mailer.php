@@ -1,7 +1,7 @@
 <?php
 function mailer($selector, $token, $sub, $urlIn, $body)
 {
-    require '../vendor/autoload.php';
+    require './vendor/autoload.php';
     $smtphost = $_ENV['smtphost'] ?? '';
     $smtpport = $_ENV['smtpport'];
     $smtpusername = $_ENV['smtpusername'];

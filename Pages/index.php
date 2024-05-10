@@ -6,7 +6,7 @@ include_once ("Models/Database.php");
 
 <head>
 <title>EventEase</title>
-<?php include(__DIR__ . '/../includes/head.php'); ?>
+<?php include('./includes/head.php'); ?>
    
 </head>
 

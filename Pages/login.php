@@ -66,7 +66,7 @@ try {
 </head>
 <body>
 
-<?php include(__DIR__ . '/../views/Navbar.php'); ?>
+<?php include('./views/Navbar.php'); ?>
 <div class="login-wrapper">
 <div class="login-container">
 <h2>Logga In</h2>
