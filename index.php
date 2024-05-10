@@ -46,12 +46,12 @@ $router->addRoute('/admin', function () {
 });
 
 $router->addRoute('/meeting', function () {
-    require __DIR__ .'/Pages/teacherLandingPage.php';
+    require __DIR__ . '/Pages/teacherLandingPage.php';
 });
 
 
 $router->addRoute('/logout', function () {
-    require __DIR__ .'/Pages/logout.php';
+    require __DIR__ . '/Pages/logout.php';
 });
 
 
