@@ -17,8 +17,9 @@
     align-items: center;
     justify-content: center;
     width: 450px;
-    height: 350px;
+    height: 360px;
     padding: 30px;
+
     background-color: rgba(9, 9, 9, 0.2);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -41,7 +42,7 @@
     background: -webkit-linear-gradient(#eee 40%, hsla(283, 33%, 46%, 1));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 30px;
     text-transform: uppercase;
 }

@@ -21,7 +21,7 @@ include_once ("Models/Database.php");
 
 
 
-
+<!--
 <div class="btn-group">
    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
      Boka möte
@@ -32,6 +32,7 @@ include_once ("Models/Database.php");
      <?php endforeach; ?>
    </ul>
  </div>
+     -->
 
 
 
