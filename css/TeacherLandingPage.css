@@ -104,6 +104,7 @@
     width: 20%;
     background-color: rgba(252, 252, 252, 0.2);
     padding: 20px;
+    padding-top: 0;
     overflow-y: auto;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

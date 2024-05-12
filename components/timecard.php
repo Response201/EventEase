@@ -41,6 +41,7 @@ if($consumer && $booking['pupilId'] == null){
 
 
     return "
+    
     <li class='time-card'>
         <p>{$weekday} {$day}</p>
         <p>Kl {$time}</p>
@@ -56,6 +57,7 @@ if($consumer && $booking['pupilId'] == null){
             <input type='hidden' name='selectedTeacher' value='{$dropdown}' />
         </form>
     </li>
+   
     ";
 }
 ?>

@@ -13,16 +13,16 @@ $dbContext = new DBContext();
 
 $message = '';
 
-$teacherId = $dbContext->getUsersDatabase()->getAuth()->getUserId(); 
+$teacherId = $dbContext->getUsersDatabase()->getAuth()->getUserId();
 
-if (isset($_POST['save'])){
+if (isset($_POST['save'])) {
     $teacherId = $_POST['teacherId'];
     $timeStamp = $_POST['timeStamp'] ?? '';
     $pupilId = $_POST['pupilId'] != null ? /* $dbContext-> getUsersDatabase()->getAuth()->getUserId() */ null : 2;
-    $status = $_POST['status'] ? 0:1;
-    $message = $dbContext->updateBooking($pupilId,$teacherId,$timeStamp,$status);
-    
-     }
+    $status = $_POST['status'] ? 0 : 1;
+    $message = $dbContext->updateBooking($pupilId, $teacherId, $timeStamp, $status);
+
+}
 
 
 
@@ -32,58 +32,66 @@ if (isset($_POST['save'])){
 <head>
 
     <title>Lärare</title>
-    <?php include(__DIR__ . '/../includes/head.php'); ?>
+    <?php include (__DIR__ . '/../includes/head.php'); ?>
 
 </head>
 
 <body>
-<?php include('./views/Navbar.php'); ?>
-<div class="meeting-wrapper">
-<div class="admin-container">
+    <?php include ('./views/Navbar.php'); ?>
+    <div class="meeting-wrapper">
+
+        <div class="sidebar">
+            <nav>
+
+                <h2>Handledning</h2>
+                <ul>
+                    <li><a href="#">Visa inbokade handledningstillfällen</a></li>
+                    <li><a href="#">Boka nytt handledningstillfälle</a></li>
+                </ul>
+                <h2>Klasshantering</h2>
+                <ul>
+                    <li><a href="#">Hantera klasser</a></li>
+                    <li><a href="#">Skapa och redigera handledning</a></li>
+                </ul>
+                <h2>Uppföljning</h2>
+                <ul>
+                    <li><a href="#">Sammanfattning av senaste handledningarna</a></li>
+                    <li><a href="#">Elevers framsteg och betyg</a></li>
+                    <li><a href="#">Feedback från elever</a></li>
+                    <li><a href="#">Analys och rapporter</a></li>
+                </ul>
+                <h2>Övrigt</h2>
+                <ul>
+                    <li><a href="#">Inställningar</a></li>
+                    <li><a href="#">Hjälp</a></li>
+                </ul>
+                <h1> EventEase</h1>
+            </nav>
+        </div>
+
+        
+
+           
+
+            <div class="admin-timecards-wrapper">
+ <h3>handledningstid</h3>
+                <div class="admin-timecards-container">
+
+                    <?php include_once ("components/timecard.php");
+
+                    $bookings = $dbContext->allActiveBookingsTeacher($teacherId);
+                    foreach ($bookings as $booking) {
+                        echo generateTimeCard($booking);
+                    } ?>
 
 
-<h2>Möteslista</h2>
-
-
-
-<?php include_once ("components/timecard.php");
-                
-                $bookings = $dbContext-> allActiveBookingsTeacher($teacherId);
-                foreach ($bookings as $booking) {
-                    echo generateTimeCard($booking);
-                } ?>
 
 
 
 
-
-        <!-- <table>
-            <tr>
-                <th>Mötesdatum</th>
-                <th>Student</th>
-                <th>Status</th>
-                <th>Åtgärder</th>
-            </tr>
-
-            <?php foreach ($meetings as $meeting): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($meeting['date']); ?></td>
-                <td><?php echo htmlspecialchars($meeting['student']); ?></td>
-                <td><?php echo htmlspecialchars($meeting['status']); ?></td>
-                <td>
-                    
-                    <?php if ($meeting['status'] !== 'Avklarat'): ?>
-                    <form method="post" action="markAsCompleted.php">
-                        <input type="hidden" name="meetingId" value="<?php echo htmlspecialchars($meeting['id']); ?>">
-                        <input type="submit" value="Markera som avklarat">
-                    </form>
-                    <?php endif; ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table> -->
-
-</div>
-</div>
-<?php include(__DIR__ . '/../views/Footer.php'); ?>
+                </div>
+            </div>
+        
+    </div>
+    <?php include (__DIR__ . '/../views/Footer.php'); ?>
 </body>
