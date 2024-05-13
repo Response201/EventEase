@@ -38,18 +38,10 @@ if (isset($_POST['save'])) {
         <div class="guidance-nav">
             <div class="logo-name-booking-list">
                 <div class="logo-name">
-                    <div class="logo"><img src="img\🦆 icon _cloud_.svg"></div>
-                    <h2>EventEase</h2>
+
                 </div>
 
             </div>
-
-            <ul class="profile-links">
-                <li><a>Välkommen Elev Elevsson</a></li>
-                <!--Byt mot riktig länk-->
-                <li><a>Logga ut</a></li>
-                <!--Byt mot riktig länk-->
-            </ul>
         </div>
         <ul class="booking-links">
             <form method="POST">
@@ -75,16 +67,7 @@ if (isset($_POST['save'])) {
         </ul>
         <div class="content-container">
             <h3>Lediga tider för:
-
-
-
-
-
-
                 <strong>
-
-
-
                     <?php
                     $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
 
@@ -94,16 +77,9 @@ if (isset($_POST['save'])) {
                     } else if ($_POST['selectedTeacher'] !== "Alla lärare") {
                         $name = $dbContext->getTeacherNameById($_POST['selectedTeacher']);
                     }
-
                     echo "$name"; ?>
-
                 </strong>
-
             </h3>
-
-
-
-
             <!--Productkort/main-->
             <ul class="timeslot-list">
 

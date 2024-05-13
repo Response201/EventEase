@@ -11,12 +11,13 @@
 
 }
 
-/*
+
 .guidance-nav{
-  
+    position: absolute;
     width: 100%;
     min-height: 80px;
-    background-color: rgba(0, 0, 0, 0.25);
+    top: 6%;
+    right: 7%;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -25,7 +26,7 @@
     padding-right: 150px;
     font-weight: 700;
 }
-*/
+
 .booking-links {
     list-style-type: none;
     padding: 0;
@@ -183,6 +184,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0;
 }
 
 .teacher-avatar {

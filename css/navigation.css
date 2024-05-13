@@ -8,10 +8,19 @@
     position: absolute;
     z-index: 1000;
     font-family: "Freeman", sans-serif;
+    
 
 }
 
+.logo-name{
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}
 
+.logo{
+    margin-top: 3px;
+}
 
 .loggedInAs {
     list-style: none;
@@ -49,6 +58,7 @@
 .auth-links-navbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     position: fixed;
     background-color: rgba(9, 9, 9, 0.2);
@@ -57,7 +67,9 @@
     transition: color 0.3s;
     top: 0;
     z-index: 1000;
-
+    padding-right: 150px;
+    padding-left: 150px;
+    
 
 }
 
