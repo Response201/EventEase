@@ -2,7 +2,7 @@
 <?php include(__DIR__ . '/../includes/head.php'); ?>
 </head>
 <footer>
-    <div class="footer-container">
+    <div id="Footer" class="footer-container">
     <p>Copyright &copy; <?= date('Y'); ?> EventEase.
     <br> 
     All rights reserved.

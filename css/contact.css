@@ -1,102 +1,91 @@
-.contact-container {
+.contact {
     width: 100%;
-    height: 120vh;
+    height: 400vh;
     background: linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
     background: -moz-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
     background: -webkit-linear-gradient(90deg, hsla(45, 100%, 88%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
 }
 
-.teacher-container {
+.contact-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 50%;
-    gap: 10px;
+    height: 100vh;
+
 }
 
-.teacher-container h2 {
+.contact-container h2 {
     color: white;
     font-family: "Freeman", sans-serif;
     font-size: 2rem;
 }
 
-.teacher-container label {
-    color: white;
-    font-family: "Freeman", sans-serif;
-    font-size: 1.2rem;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-    padding: 15px 0px 15px 1px;
-    background-color: transparent;
-    font-family: "Freeman", sans-serif;
-}
-
-.dropdown-btn {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown-btn::after {
-    content: "\25BC";
-    display: inline-block;
-    margin-left: 5px;
-}
-.submit-btn {
-    font-family: "Freeman", sans-serif;
-    font-size: 0.8rem;
-}
-.contact {
-    background-image: url("../img/cloud-with-ai-generated-free-png.webp");
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 500px;
+.teacher {
     width: 70%;
     left: 16%;
     position: absolute;
-    top: 50%;
+    z-index: 0;
+}
+.teacher-container {
+    background-image: url("../img/cloud-with-ai-generated-free-png.webp");
+    background-position: center;
+    background-size: contain;
+    background-repeat:no-repeat;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
     z-index: 1;
 }
-.contact h3 {
-    color: #ffffff;
-    text-align: center;
-}
-
-.contact-teacher {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-.contact-teacher div {
+.teacher-container-info {
     margin-bottom: 5px;
     border: 2px solid #ccc;
     border-radius: 5px;
-    width: 150px;
-    height: 100px;
+    text-align: center;
     padding: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     overflow: hidden;
     backdrop-filter: blur(5px);
+    opacity: 0; /* Gör innehållet osynligt från början */
+    transition: opacity 0.8s ease-in; 
 }
-.contact-teacher li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.teacher-container-info.show {
+    opacity: 1; /* Gör innehållet synligt när klassen "show" läggs till */
 }
-.contact-teacher li:first-child {
-    font-weight: bold;
+.teacher-container h2 {
+    color: #000000;
+    text-align: center;
+}
+.teacher-container h2 img {
+float: right;
+}
+.teacher-container li {
+    list-style: none;
+}
+.teacher-link {
+    color: #000000;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s;
+}
+
+.teacher-link:hover,
+.teacher-link:focus {
+    color: rgb(0, 0, 0);
+}
+.arrow-contacts {
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
+}
+.arrow-contacts i {
+    color: black;
+    text-decoration: none;
 }
