@@ -19,7 +19,6 @@ if (isset($_POST['create'])) {
         $message = "Vänligen fyll i alla fält";
     } else {
         $v->field('email')->required()->email()->min_val(1)->max_len(100);
-        $v->field('username')->required()->alpha()->min_val(1)->max_len(15);
         $v->field('password')->required()->match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/");
         if ($v->is_valid()) {
             $message = auth();
