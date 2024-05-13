@@ -73,7 +73,10 @@ float: right;
     transition: color 0.3s;
 }
 
-.teacher-link:hover,
+.teacher-link:hover {
+    text-decoration: underline;
+    color: #000000;
+}
 .teacher-link:focus {
     color: rgb(0, 0, 0);
 }

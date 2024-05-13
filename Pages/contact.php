@@ -61,7 +61,8 @@ ob_start();
                     <p>Kontakta mig:</p>
                     <p>Tel: 070-777 88 22</p>
                     <p>Mail: Sebbe@mail.com</p>
-                    <li><a href="/guidance" class="nav-link">Boka handledning</a></li>
+                    <br>
+                    <li><a href="/guidance" class="teacher-link">Boka handledning</a></li>
                 </div>
                 <link rel="stylesheet" href="">
                 <div class="arrow-contacts">
@@ -83,7 +84,8 @@ ob_start();
                     <p>Kontakta mig:</p>
                     <p>Tel: 070-444 11 66</p>
                     <p>Mail: Anders@mail.com</p>
-                    <li><a href="/guidance" class="nav-link">Boka handledning</a></li>
+                    <br>
+                    <li><a href="/guidance" class="teacher-link">Boka handledning</a></li>
                 </div>
                 <link rel="stylesheet" href="">
                 <div class="arrow-contacts">
