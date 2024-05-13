@@ -2,7 +2,7 @@
 include_once ("Models/Database.php");
 
 
-function generateTimeCard($booking)
+function generateTimeCard($booking, $selectedTeacher=null)
 {
     $dbContext = new DBContext();
     $date = new DateTime($booking['timeStamp']);
@@ -56,6 +56,9 @@ $button = "<button class='booking-button' >---</button>";
             <input type='hidden' name='timeStamp' value='{$booking['timeStamp']}' />
             <input type='hidden' name='pupilId' value='{$booking['pupilId']}' />
             <input type='hidden' name='status' value='{$booking['status']}' />
+            <input type='hidden' name='selectedTeacher' value='{$selectedTeacher}' />
+          
+
         </form>
     </li>
     ";
