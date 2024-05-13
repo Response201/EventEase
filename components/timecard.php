@@ -2,7 +2,7 @@
 include_once ("Models/Database.php");
 
 
-function generateTimeCard($booking, $dropdown='Alla lärare')
+function generateTimeCard($booking)
 {
     $dbContext = new DBContext();
     $date = new DateTime($booking['timeStamp']);
@@ -10,38 +10,29 @@ function generateTimeCard($booking, $dropdown='Alla lärare')
     $day = $date->format('j/n');
     $time = $date->format('H:i');
     $teacher = $dbContext->getTeacherNameById($booking['teacherId']);
-$pupilId = $dbContext->getUsersDatabase()->getAuth()->getUserId() ?? ""; 
-$consumer = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER) ? true : false;
-$author = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR) ? true : false;
-$button ="";
+    $pupilId = $dbContext->getUsersDatabase()->getAuth()->getUserId() ?? "";
+    $consumer = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER) ? true : false;
+    $author = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR) ? true : false;
+    $button = "";
 
 
 
 
+    if ($consumer && $booking['pupilId'] == null) {
 
-if($consumer && $booking['pupilId'] == null){
+        $button = "<button class='booking-button' name='save'>Boka</button>";
+    } else if ($booking['pupilId'] && $author || $booking['pupilId'] === $pupilId) {
 
-    $button = "<button class='booking-button' name='save'>Boka</button>";
- }
- else if($booking['pupilId'] && $author || $booking['pupilId'] == $pupilId ){
- 
-     $button = "<button class='booking-button' name='save'>Avboka</button>";
-  }
-  else if(!$booking['pupilId'] && $author ){
- 
-    $button = "<button class='booking-button' >Ledig</button>";
- }
+        $button = "<button class='booking-button' name='save'>Avboka</button>";
+    } else if (!$booking['pupilId'] && $author) {
 
-
-
-
-
+        $button = "<button class='booking-button' >Ledig</button>";
+    }
 
 
 
 
     return "
-    
     <li class='time-card'>
         <p>{$weekday} {$day}</p>
         <p>Kl {$time}</p>
@@ -54,10 +45,8 @@ if($consumer && $booking['pupilId'] == null){
             <input type='hidden' name='timeStamp' value='{$booking['timeStamp']}' />
             <input type='hidden' name='pupilId' value='{$booking['pupilId']}' />
             <input type='hidden' name='status' value='{$booking['status']}' />
-            <input type='hidden' name='selectedTeacher' value='{$dropdown}' />
         </form>
     </li>
-   
     ";
 }
 ?>

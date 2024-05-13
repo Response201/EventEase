@@ -32,7 +32,7 @@ if (isset($_POST['save'])) {
 </head>
 
 <body>
-<?php include(__DIR__ . '/../views/Navbar.php'); ?>
+    <?php include (__DIR__ . '/../views/Navbar.php'); ?>
     <div class="guidance-wrapper">
         <!--Nav-->
         <div class="guidance-nav">
@@ -52,27 +52,27 @@ if (isset($_POST['save'])) {
             </ul>
         </div>
         <ul class="booking-links">
-                    <form method="POST">
-                        <select name="selectedTeacher" onchange="this.form.submit()">
-                            <option value="Alla lärare">Alla lärare</option>
-                            <?php
-                            $teacherUsernames = $dbContext->getAllTeachers();
-                            foreach ($teacherUsernames as $item) {
-                                echo '<option class="form-control" value="' . $item['id'] . '"';
-                                if (isset($_POST['selectedTeacher']) && $_POST['selectedTeacher'] == $item['id']) {
-                                    echo ' selected';
-                                }
-                                echo '>' . $item['username'] . '</option>';
-                            }
+            <form method="POST">
+                <select name="selectedTeacher" onchange="this.form.submit()">
+                    <option value="Alla lärare">Alla lärare</option>
+                    <?php
+                    $teacherUsernames = $dbContext->getAllTeachers();
+                    foreach ($teacherUsernames as $item) {
+                        echo '<option class="form-control" value="' . $item['id'] . '"';
+                        if (isset($_POST['selectedTeacher']) && $_POST['selectedTeacher'] == $item['id']) {
+                            echo ' selected';
+                        }
+                        echo '>' . $item['username'] . '</option>';
+                    }
 
 
-                            ?>
+                    ?>
 
-                        </select>
-                        <!--     <button type="submit">Visa tider</button> -->
-                    </form>
-                   
-                </ul>
+                </select>
+                <!--     <button type="submit">Visa tider</button> -->
+            </form>
+
+        </ul>
         <div class="content-container">
             <h3>Lediga tider för:
 
@@ -86,9 +86,9 @@ if (isset($_POST['save'])) {
 
 
                     <?php
-$post = $_POST['selectedTeacher'] ?? 'Alla lärare';
+                    $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
 
-                    if ( $post === "Alla lärare"  ) {
+                    if ($post === "Alla lärare") {
 
                         $name = 'Alla lärare';
                     } else if ($_POST['selectedTeacher'] !== "Alla lärare") {
@@ -102,7 +102,7 @@ $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
             </h3>
 
 
-        
+
 
             <!--Productkort/main-->
             <ul class="timeslot-list">
@@ -114,7 +114,7 @@ $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
                 $teacher = $_POST['selectedTeacher'] ?? 'Alla lärare';
                 $bookings = $dbContext->allActiveBookings($teacher, $pupilId);
                 foreach ($bookings as $booking) {
-                    echo generateTimeCard($booking, $_POST['selectedTeacher'] ?? 'Alla lärare' );
+                    echo generateTimeCard($booking, $_POST['selectedTeacher'] ?? 'Alla lärare');
 
 
 
