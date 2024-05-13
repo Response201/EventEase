@@ -14,14 +14,25 @@ function generateTimeCard($booking)
     $consumer = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER) ? true : false;
     $author = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR) ? true : false;
     $button = "";
-
+$bookedMeetings = $dbContext-> getPupilbookings($pupilId);
 
 
 
     if ($consumer && $booking['pupilId'] == null) {
 
         $button = "<button class='booking-button' name='save'>Boka</button>";
-    } else if ($booking['pupilId'] && $author || $booking['pupilId'] === $pupilId) {
+
+foreach($bookedMeetings as $meeting){
+if($meeting['timeStamp'] == $booking['timeStamp']){
+$button = "<button class='booking-button' >---</button>";
+}
+
+
+}
+
+
+
+    } else if ($booking['pupilId'] && $author ||  $consumer && $booking['pupilId'] == $pupilId) {
 
         $button = "<button class='booking-button' name='save'>Avboka</button>";
     } else if (!$booking['pupilId'] && $author) {
