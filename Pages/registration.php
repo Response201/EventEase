@@ -7,7 +7,7 @@ require_once ("Utils/Validator.php");
 
 $v = new Validator($_POST);
 $dbContext = new DBContext();
-$message = $_GET['message'] ?? "";
+$message =  "";
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 $email = $_POST['email'] ?? '';

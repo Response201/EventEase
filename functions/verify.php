@@ -11,5 +11,5 @@ try {
 } catch (Delight\Auth\AuthException $e) {
     $message = 'Något gick fel vid verifieringen';
 }
-header("Location:/registration?message=$message");
+header("Location:/login?message=$message");
 ?>

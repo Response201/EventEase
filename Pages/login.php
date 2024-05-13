@@ -6,7 +6,7 @@ include_once ("Models/Database.php");
 /* require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
 require_once(realpath(dirname(__FILE__) . '/../functions/auth.php'));
 require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php')); */
-$message = "";
+$message = $message = $_GET['message'] ?? "";
 $dbContext = new DBContext();
 /* 
 
