@@ -114,32 +114,32 @@ h3 {
 }
 
 .select-wrapper::after {
-    content: "\25BC";  /* Unicode for down arrow */
-    color: white;      /* Adjust the color to match your design */
+    content: "\25BC";  
+    color: white;     
     position: absolute;
-    right: 10px;       /* Adjust positioning to suit your needs */
+    right: 10px;       
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none; /* Makes sure clicks pass through to the select element */
-    font-size: 16px;  /* Adjust the size as necessary */
+    pointer-events: none; 
+    font-size: 16px;  
 }
 
 select {
-    -webkit-appearance: none;  /* Removes default styling on WebKit browsers like Safari and Chrome */
-    -moz-appearance: none;    /* Removes default styling for Firefox */
-    appearance: none;         /* Removes default styling */
+    -webkit-appearance: none; 
+    -moz-appearance: none;   
+    appearance: none;        
     padding-right: 30px;
-    margin-left: 30px;   /* Make space for the arrow */
-    background: transparent;  /* Keeps the background consistent with your design */
-    color: white;             /* Text color */
+    margin-left: 10px;   
+    background: transparent; 
+    color: white;            /
     border-radius: 4px;
-    border: 1px solid #ccc;   /* Optional: adds a border to the select box */
-    font-size: 24px;          /* Adjust font size as necessary */
-    cursor: pointer;          /* Indicates the element is clickable */
+    border: 1px solid #ccc;   
+    font-size: 24px;         
+    cursor: pointer;          
 }
 
 select option {
-    color: black; /* Ensures options are readable against a lighter background */
+    color: black; 
 }
 
 
