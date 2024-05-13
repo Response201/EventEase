@@ -33,26 +33,26 @@ if (isset($_POST['login']) && $username && $password) {
         $_SESSION['user_id'] = $userDatabase->getAuth()->getUserId(); 
 
         $_SESSION['role'] = $userDatabase->getAuth()->getRoles(); */
-        $username = $_POST['username'] ?? '';
-        $password = $_POST['password'] ?? ''; 
-        if (isset($_POST['login']) && $username && $password) {
+$username = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
+if (isset($_POST['login']) && $username && $password) {
 
-try {
-    $dbContext->getUsersDatabase()->getAuth()->login($username, $password);
-        
-    if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
-         header("Location: /meeting");
-    } else if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)) {
-        header("Location: /"); // Omdirigera användare till startsidan
+    try {
+        $dbContext->getUsersDatabase()->getAuth()->login($username, $password);
+
+        if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
+            header("Location: /meeting");
+        } else if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)) {
+            header("Location: /"); // Omdirigera användare till startsidan
+
+        }
+    } catch (\Throwable $th) {
+        $message = "något gick fel";
 
     }
-} catch (\Throwable $th) {
-    $message = "något gick fel";
-    
+
+
 }
-
-
-      }
 
 ?>
 
@@ -62,13 +62,13 @@ try {
 <head>
 
     <title>Login</title>
-    <?php include(__DIR__ . '/../includes/head.php'); ?>
+    <?php include (__DIR__ . '/../includes/head.php'); ?>
 
 </head>
 
 <body>
 
-    <?php include('./views/Navbar.php'); ?>
+    <?php include ('./views/Navbar.php'); ?>
     <div class="login-wrapper">
         <div class="login-container">
             <h2>Logga In</h2>
@@ -83,14 +83,14 @@ try {
                 <p><?php echo "$message"; ?></p>
             </form>
 
-            <p> Har du inget konto? <a href="/register">Registrera dig här!</a></p>
+            <p> Har du inget konto? <a href="/registration">Registrera dig här!</a></p>
         </div>
 
     </div>
 
 
 
-    <?php include(__DIR__ . '/../views/Footer.php'); ?>
+    <?php include (__DIR__ . '/../views/Footer.php'); ?>
 </body>
 
 </html>

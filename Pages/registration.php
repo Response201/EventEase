@@ -7,7 +7,7 @@ require_once ("Utils/Validator.php");
 
 $v = new Validator($_POST);
 $dbContext = new DBContext();
-$message =  "";
+$message = "";
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 $email = $_POST['email'] ?? '';
@@ -34,42 +34,39 @@ if (isset($_POST['create'])) {
 
 
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
-
-<?php include(__DIR__ . '/../includes/head.php'); ?>
-
+    <title>Registration</title>
+    <?php include (__DIR__ . '/../includes/head.php'); ?>
 
 </head>
 
 <body>
 
-    <div class="registration-container">
-        <?php include (__DIR__ . '/../views/Navbar.php'); ?>
-        <div class="registration-container-form">
-        <form class="from" method="POST">
-            <section class="fromInputs">
-                <label>Epostadress: </label>
-                <input name="email"   />
-                <label>Namn: </label>
-                <input name="username" type="text"  />
-                <label>Lösenord: </label>
-                <input name="password" type="password" />
-            </section>
-            <section class='fromBtnMessage'>
-                <button name='create'>Registrera</button>
+    <?php include (__DIR__ . '/../views/Navbar.php'); ?>
+    <div class="login-wrapper">
+
+        <div class="login-container">
+
+            <h2>Registrera</h2>
+            <form method="POST">
+                <label for="email">Epostadress:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="username">Namn:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Lösenord:</label>
+                <label>minimum 6 tecken, minst
+                    en stor bokstav och ett special tecken</label>
+                <input type="password" id="password" name="password" required>
+
+                <br>
+                <button type="submit" name="create">Registrera</button>
                 <p><?php echo "$message"; ?></p>
-            </section>
-        </form>
-</div >
-
-
-
-
-
-
-        <div class="background">
-            <img src="../img/cloud-with-ai-generated-free-png.webp">
+            </form>
+            <p> Har du redan ett konto? <a href="/login">Logga in här!</a></p>
         </div>
     </div>
 

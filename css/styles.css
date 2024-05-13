@@ -17,15 +17,12 @@ html {
 }
 
 .landingpage-background-container {
-    background-image: url("../img/cloud-with-ai-generated-free-png.webp");
+    
     background-position: center;
     background-size: cover;
-    height: 500px;
-    width: 70%;
-    left: 16%;
-    position: absolute;
-    top: 50%;
-    z-index: 1;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
 }
 
 .slogan-text h1 {
