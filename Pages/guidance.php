@@ -44,42 +44,31 @@ if (isset($_POST['save'])) {
             </div>
         </div>
         <ul class="booking-links">
-            <form method="POST">
-                <select name="selectedTeacher" onchange="this.form.submit()">
-                    <option value="Alla lärare">Alla lärare</option>
-                    <?php
-                    $teacherUsernames = $dbContext->getAllTeachers();
-                    foreach ($teacherUsernames as $item) {
-                        echo '<option class="form-control" value="' . $item['id'] . '"';
-                        if (isset($_POST['selectedTeacher']) && $_POST['selectedTeacher'] == $item['id']) {
-                            echo ' selected';
-                        }
-                        echo '>' . $item['username'] . '</option>';
-                    }
 
-
-                    ?>
-
-                </select>
-                <!--     <button type="submit">Visa tider</button> -->
-            </form>
 
         </ul>
         <div class="content-container">
             <h3>Lediga tider för:
-                <strong>
-                    <?php
-                    $post = $_POST['selectedTeacher'] ?? 'Alla lärare';
+                <form method="POST" style="display: inline;">
+                    <div class="select-wrapper">
+                        <select name="selectedTeacher" onchange="this.form.submit()">
+                            <?php
+                            $selectedTeacher = $_POST['selectedTeacher'] ?? 'Alla lärare';
+                            echo '<option value="Alla lärare"' . ($selectedTeacher == 'Alla lärare' ? ' selected' : '') . '>Alla lärare</option>';
+                            $teacherUsernames = $dbContext->getAllTeachers();
+                            foreach ($teacherUsernames as $item) {
+                                $isSelected = ($selectedTeacher == $item['id']) ? ' selected' : '';
+                                echo '<option class="form-control" value="' . $item['id'] . '"' . $isSelected . '>' . $item['username'] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </form>
 
-                    if ($post === "Alla lärare") {
-
-                        $name = 'Alla lärare';
-                    } else if ($_POST['selectedTeacher'] !== "Alla lärare") {
-                        $name = $dbContext->getTeacherNameById($_POST['selectedTeacher']);
-                    }
-                    echo "$name"; ?>
-                </strong>
             </h3>
+
+
+
             <!--Productkort/main-->
             <ul class="timeslot-list">
 
