@@ -1,46 +1,37 @@
 <?php
-session_start(); 
+/* session_start(); */
 ob_start();
 
-include_once("Models/Database.php");
-require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
+include_once ("Models/Database.php");
+/* require_once(realpath(dirname(__FILE__) . '/../vendor/autoload.php'));
 require_once(realpath(dirname(__FILE__) . '/../functions/auth.php'));
-require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php'));
-
+require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php')); */
+$message = $message = $_GET['message'] ?? "";
 $dbContext = new DBContext();
-$pdo = $dbContext->getPdo(); 
-$userDatabase = new UserDatabase($pdo);
-$auth = new \Delight\Auth\Auth($pdo, null, null, false, 2 * 60 * 60);
+ 
 
-$message = $_GET['message'] ?? "";
 
-if (isset($_POST['login'])) {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
-    if ($username && $password) {
-        try {
-            $auth->loginWithUsername($username, $password);
-            $_SESSION['username'] = $auth->getUsername();
-            $_SESSION['user_id'] = $auth->getUserId();
-            $_SESSION['role'] = $auth->getRoles();
+        $username = $_POST['username'] ?? '';
+        $password = $_POST['password'] ?? ''; 
+        if (isset($_POST['login']) && $username && $password) {
 
-            if ($auth->hasRole(\Delight\Auth\Role::AUTHOR)) {
-                header("Location: /meeting");
-                exit;
-            } else if($auth->hasRole(\Delight\Auth\Role::CONSUMER)) {
-                header("Location: /"); // Redirect to homepage
-                exit;
-            }
-        } catch (\Delight\Auth\InvalidEmailException | \Delight\Auth\InvalidPasswordException $e) {
-            $message = "Invalid username or password.";
-        } catch (\Throwable $th) {
-            $message = "An error occurred: " . $th->getMessage();
-        }
-    } else {
-        $message = "Username and password are required.";
+try {
+    $dbContext->getUsersDatabase()->getAuth()->login($username, $password);
+        
+    if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
+         header("Location: /meeting");
+    } else if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)) {
+        header("Location: /"); // Omdirigera användare till startsidan
+
     }
+} catch (\Throwable $th) {
+    $message = "något gick fel";
+    
 }
+
+
+      }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
