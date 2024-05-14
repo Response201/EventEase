@@ -2,7 +2,7 @@
 include_once ("Models/Database.php");
 
 
-function generateTimeCard($booking)
+function generateTimeCard($booking, $selectedTeacher=null)
 {
     $dbContext = new DBContext();
     $date = new DateTime($booking['timeStamp']);
@@ -14,14 +14,25 @@ function generateTimeCard($booking)
     $consumer = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER) ? true : false;
     $author = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR) ? true : false;
     $button = "";
-
+$bookedMeetings = $dbContext-> getPupilbookings($pupilId);
 
 
 
     if ($consumer && $booking['pupilId'] == null) {
 
         $button = "<button class='booking-button' name='save'>Boka</button>";
-    } else if ($booking['pupilId'] && $author || $booking['pupilId'] === $pupilId) {
+
+foreach($bookedMeetings as $meeting){
+if($meeting['timeStamp'] == $booking['timeStamp']){
+$button = "<button class='booking-button' >---</button>";
+}
+
+
+}
+
+
+
+    } else if ($booking['pupilId'] && $author ||  $consumer && $booking['pupilId'] == $pupilId) {
 
         $button = "<button class='booking-button' name='save'>Avboka</button>";
     } else if (!$booking['pupilId'] && $author) {
@@ -45,6 +56,9 @@ function generateTimeCard($booking)
             <input type='hidden' name='timeStamp' value='{$booking['timeStamp']}' />
             <input type='hidden' name='pupilId' value='{$booking['pupilId']}' />
             <input type='hidden' name='status' value='{$booking['status']}' />
+            <input type='hidden' name='selectedTeacher' value='{$selectedTeacher}' />
+          
+
         </form>
     </li>
     ";

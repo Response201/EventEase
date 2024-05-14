@@ -75,7 +75,7 @@ if (isset($_POST['save'])) {
                 $teacher = $_POST['selectedTeacher'] ?? 'Alla lärare';
                 $bookings = $dbContext->allActiveBookings($teacher, $pupilId);
                 foreach ($bookings as $booking) {
-                    echo generateTimeCard($booking, $_POST['selectedTeacher'] ?? 'Alla lärare');
+                    echo generateTimeCard($booking, $teacher);
 
                 }
                 ?>
