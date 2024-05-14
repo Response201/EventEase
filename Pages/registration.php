@@ -8,6 +8,7 @@ require_once ("Utils/Validator.php");
 $v = new Validator($_POST);
 $dbContext = new DBContext();
 $message = "";
+$passwordMessage = "";
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 $email = $_POST['email'] ?? '';
@@ -22,10 +23,13 @@ if (isset($_POST['create'])) {
         $v->field('password')->required()->match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/");
         if ($v->is_valid()) {
             $message = auth();
-            if ($message === 'Prefekt, kolla mailet och verifiera ditt konto') {
+            if ($message === 'Perfekt, kolla mailet och verifiera ditt konto') {
                 $dbContext->getUsersDatabase()->makeConsumer($email);
             }
         } else {
+            if (!$v->field('password')->is_valid()) {
+                $passwordMessage = "Lösenordet måste vara minst 6 tecken långt, innehålla minst en stor bokstav och ett specialtecken";
+            }
             $message = "Det gick inte registrera kontot";
         }
     }
@@ -58,10 +62,10 @@ if (isset($_POST['create'])) {
                 <input type="text" id="username" name="username" required>
                 <br>
                 <label for="password">Lösenord:</label>
-                <label>minimum 6 tecken, minst
-                    en stor bokstav och ett special tecken</label>
                 <input type="password" id="password" name="password" required>
-
+                <?php if ($passwordMessage): ?>
+                    <p style="color: red;"><?php echo $passwordMessage; ?></p>
+                <?php endif; ?>
                 <br>
                 <button type="submit" name="create">Registrera</button>
                 <p><?php echo "$message"; ?></p>
