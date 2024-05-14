@@ -6,7 +6,6 @@ if (
         getUsersDatabase()->getAuth()->isLoggedIn()
 ) {
     $username = $dbContext->getUsersDatabase()->getAuth()->getUsername();
-
     if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
         $usernameString = "<li class='navmessage'>Välkommen " . htmlspecialchars($username) . " - handledning idag, framgång imorgon</li>";
     } else {
@@ -22,8 +21,6 @@ if (
             <h2>EventEase</h2>
         </div>
     </a>
-
-
     <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()): ?>
         <div class="loggedInAs">
             <?php echo $usernameString; ?>
@@ -34,13 +31,11 @@ if (
         <div class="login-block"><a href="/login" class="login-button">Logga In</a>
             <a href="/registration" class="register-button">Registrera</a>
         </div>
-
     <?php endif; ?>
 </div>
 </>
 <nav class="navigation">
     <ul class="nav-list">
-
         <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn() && $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)): ?>
             <li class="nav-item"><a href="/admin" class="nav-link">Inbokad handledning</a></li>
             <li class="nav-item"><a href=" /meeting" class="nav-link">Lärarpanel</a></li>
@@ -52,9 +47,7 @@ if (
         <?php endif; ?>
     </ul>
 </nav>
-
 <body>
     <div class="nav-background">
-
     </div>
 </body>

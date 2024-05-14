@@ -2,7 +2,7 @@
 include_once ("Models/Database.php");
 
 
-function generateTimeCard($booking, $selectedTeacher=null)
+function generateTimeCard($booking, $selectedTeacher = null)
 {
     $dbContext = new DBContext();
     $date = new DateTime($booking['timeStamp']);
@@ -14,7 +14,7 @@ function generateTimeCard($booking, $selectedTeacher=null)
     $consumer = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER) ? true : false;
     $author = $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR) ? true : false;
     $button = "";
-$bookedMeetings = $dbContext-> getPupilbookings($pupilId);
+    $bookedMeetings = $dbContext->getPupilbookings($pupilId);
 
 
 
@@ -22,25 +22,21 @@ $bookedMeetings = $dbContext-> getPupilbookings($pupilId);
 
         $button = "<button class='booking-button' name='save'>Boka</button>";
 
-foreach($bookedMeetings as $meeting){
-if($meeting['timeStamp'] == $booking['timeStamp']){
-$button = "<button class='booking-button' >---</button>";
-}
+        foreach ($bookedMeetings as $meeting) {
+            if ($meeting['timeStamp'] == $booking['timeStamp']) {
+                $button = "<button class='booking-button' >---</button>";
+            }
 
 
-}
+        }
 
-
-
-    } else if ($booking['pupilId'] && $author ||  $consumer && $booking['pupilId'] == $pupilId) {
+    } else if ($booking['pupilId'] && $author || $consumer && $booking['pupilId'] == $pupilId) {
 
         $button = "<button class='booking-button' name='save'>Avboka</button>";
     } else if (!$booking['pupilId'] && $author) {
 
         $button = "<button class='booking-button' >Ledig</button>";
     }
-
-
 
 
     return "
