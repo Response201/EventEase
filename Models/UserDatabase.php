@@ -1,49 +1,26 @@
 <?php
-require_once(realpath(dirname(__FILE__) . '/../Utils/Validator.php'));
-
 class UserDatabase
 {
-    private $pdo;
-    private $auth;
-
-    function __construct($pdo)
-    {
-        $this->pdo = $pdo;
-        $this->auth = new \Delight\Auth\Auth($pdo, null, null, false, 2 * 60 * 60);
+  private $pdo;
+  private $auth;
+  function getAuth()
+  {
+    return $this->auth;
+  }
+  function __construct($pdo)
+  {
+    $this->pdo = $pdo;
+    $this->auth = new \Delight\Auth\Auth($pdo, null, null, false, 2 * 60 * 60); 
+  }
+  /* sätt roll på user => epostadress ska skickas in */
+  function makeConsumer($email)
+  {
+    if ($this->auth->hasRole(\Delight\Auth\Role::CONSUMER, $email)) {
+      return;
     }
-
-    function getAuth()
-    {
-        return $this->auth;
-    }
-
-    function makeConsumer($email)
-    {
-        try {
-            if ($this->auth->hasRole(\Delight\Auth\Role::CONSUMER, $email)) {
-                return;
-            }
-            $this->auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::CONSUMER);
-        } catch (\Delight\Auth\Exception $e) {
-            echo "Error processing request: " . $e->getMessage();
-        }
-    }
-
-    function loginUser($username, $password)
-    {
-        try {
-            $this->auth->loginWithUsername($username, $password);
-            return true;
-        } catch (\Delight\Auth\InvalidPasswordException $e) {
-            return 'Wrong password';
-        } catch (\Delight\Auth\UnknownUsernameException $e) {
-            return 'Unknown username';
-        } catch (\Delight\Auth\TooManyRequestsException $e) {
-            return 'Too many requests';
-        }
-    }
-
-    function setupUsers()
+    $this->auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::CONSUMER);
+  }
+  function setupUsers()
   {
     $sql = "
         -- PHP-Auth (https://github.com/delight-im/PHP-Auth)
@@ -113,26 +90,21 @@ class UserDatabase
         /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;";
     $this->pdo->exec($sql);
   }
-
-    function seedUsers()
-    {
-        $users = [
-            ["email" => "stefan.holmberg@systementor.se", "password" => "Hejsan123#", "name" => "Stefan", "role" => \Delight\Auth\Role::AUTHOR],
-            ["email" => "gabbe.ss@gmail.com", "password" => "Hejsan123#", "name" => "Gabbe", "role" => \Delight\Auth\Role::CONSUMER],
-            ["email" => "sebastian.tegel@tegelconsulting.se", "password" => "Hanna123!", "name" => "Sebastian", "role" => \Delight\Auth\Role::AUTHOR],
-            ["email" => "anders@vemvet.se", "password" => "Anders123!", "name" => "Anders", "role" => \Delight\Auth\Role::AUTHOR]
-        ];
-
-        foreach ($users as $user) {
-            if ($this->pdo->query("SELECT * FROM users WHERE email='{$user['email']}'")->rowCount() == 0) {
-                $userId = $this->auth->admin()->createUser($user['email'], $user['password'], $user['name']);
-                $this->auth->admin()->addRoleForUserById($userId, $user['role']);
-            } else {
-              return;
-            }
-        }
+  function seedUsers()
+  {
+    /* Skapar användare med rollen lärare  */
+    if ($this->pdo->query("select * from users where email='stefan.holmberg@systementor.se'")->rowCount() == 0) {
+      $userId = $this->auth->admin()->createUser("stefan.holmberg@systementor.se", "Hejsan123#", "Stefan");
+      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
+    }
+    if ($this->pdo->query("select * from users where email='sebastian.tegel@tegelconsulting.se'")->rowCount() == 0) {
+      $userId = $this->auth->admin()->createUser("sebastian.tegel@tegelconsulting.se", "Hanna123!", "Sebastian");
+      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
+    }
+    if ($this->pdo->query("select * from users where email='anders@vemvet.se'")->rowCount() == 0) {
+      $userId = $this->auth->admin()->createUser("anders@vemvet.se", "Anders123!", "Anders");
+      $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::AUTHOR);
     }
 }
+ }
 ?>
-
-
