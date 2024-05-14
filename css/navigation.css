@@ -24,13 +24,13 @@
 
 .loggedInAs {
     list-style: none;
-    position: absolute;
-    left: 15%;
+    padding-right: 40%;
     background: -webkit-linear-gradient(right, #eee 40%, rgb(180, 121, 205));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
 }
+
 
 .nav-list {
     list-style: none;

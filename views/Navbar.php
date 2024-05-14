@@ -8,9 +8,9 @@ if (
     $username = $dbContext->getUsersDatabase()->getAuth()->getUsername();
 
     if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)) {
-        $usernameString = "<li>Välkommen " . htmlspecialchars($username) . " - handledning idag, framgång imorgon</li>";
+        $usernameString = "<li class='navmessage'>Välkommen " . htmlspecialchars($username) . " - handledning idag, framgång imorgon</li>";
     } else {
-        $usernameString = "<li>Välkommen " . htmlspecialchars($username) . "! Är du redo att boka din nästa handledning?
+        $usernameString = "<li class='navmessage'>Välkommen " . htmlspecialchars($username) . "! Är du redo att boka din nästa handledning?
     </li>";
     }
 }
@@ -25,15 +25,15 @@ if (
 
 
     <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()): ?>
-    <div class="loggedInAs">
-        <?php echo $usernameString; ?>
-    </div>
-    <a href="/logout" class="logout-button">Logga Ut</a>
+        <div class="loggedInAs">
+            <?php echo $usernameString; ?>
+        </div>
+        <a href="/logout" class="logout-button">Logga Ut</a>
 
     <?php else: ?>
-    <div class="login-block"><a href="/login" class="login-button">Logga In</a>
-        <a href="/registration" class="register-button">Registrera</a>
-    </div>
+        <div class="login-block"><a href="/login" class="login-button">Logga In</a>
+            <a href="/registration" class="register-button">Registrera</a>
+        </div>
 
     <?php endif; ?>
 </div>
@@ -42,13 +42,13 @@ if (
     <ul class="nav-list">
 
         <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn() && $dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR)): ?>
-        <li class="nav-item"><a href="/admin" class="nav-link">Inbokad handledning</a></li>
-        <li class="nav-item"><a href=" /meeting" class="nav-link">Lärarpanel</a></li>
+            <li class="nav-item"><a href="/admin" class="nav-link">Inbokad handledning</a></li>
+            <li class="nav-item"><a href=" /meeting" class="nav-link">Lärarpanel</a></li>
 
 
         <?php elseif ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)): ?>
-        <li class="nav-item"><a href="/guidance" class="nav-link">handledning</a></li>
-        <li class="nav-item"><a href="/contact" class="nav-link">Kontakta lärare</a></li>
+            <li class="nav-item"><a href="/guidance" class="nav-link">handledning</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link">Kontakta lärare</a></li>
         <?php endif; ?>
     </ul>
 </nav>
