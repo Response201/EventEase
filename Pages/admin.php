@@ -9,8 +9,6 @@ require_once ("Models/Database.php");
 
 $dbContext = new DBContext();
 
-
-
 $message = '';
 
 $teacherId = $dbContext->getUsersDatabase()->getAuth()->getUserId();
@@ -23,9 +21,6 @@ if (isset($_POST['save'])) {
     $message = $dbContext->updateBooking($pupilId, $teacherId, $timeStamp, $status);
 
 }
-
-
-
 
 ?>
 
@@ -69,29 +64,29 @@ if (isset($_POST['save'])) {
             </nav>
         </div>
 
-        
-
-           
-
-            <div class="admin-timecards-wrapper">
- <h3>handledningstid</h3>
-                <div class="admin-timecards-container">
-
-                    <?php include_once ("components/timecard.php");
-
-                    $bookings = $dbContext->allActiveBookingsTeacher($teacherId);
-                    foreach ($bookings as $booking) {
-                        echo generateTimeCard($booking);
-                    } ?>
 
 
 
 
+        <div class="admin-timecards-wrapper">
+            <h3>handledningstid</h3>
+            <div class="admin-timecards-container">
+
+                <?php include_once ("components/timecard.php");
+
+                $bookings = $dbContext->allActiveBookingsTeacher($teacherId);
+                foreach ($bookings as $booking) {
+                    echo generateTimeCard($booking);
+                } ?>
 
 
-                </div>
+
+
+
+
             </div>
-        
+        </div>
+
     </div>
     <?php include (__DIR__ . '/../views/Footer.php'); ?>
 </body>
