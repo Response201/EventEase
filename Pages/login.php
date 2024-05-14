@@ -28,7 +28,7 @@ if (isset($_POST['login']) && $username && $password) {
 
         } else if ($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::CONSUMER)) {
 
-            header("Location: /"); // Omdirigera användare till startsidan
+            header("Location: /");
 
         }
 
