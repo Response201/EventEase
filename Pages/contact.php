@@ -8,7 +8,7 @@ ob_start();
 
 
 <title>EventEase</title>
-    <?php include(__DIR__ . '/../includes/head.php'); ?>
+    <?php include('./includes/head.php'); ?>
    
 </head>
 
@@ -99,7 +99,7 @@ ob_start();
         </div>
         
     </div>
-    <?php include(__DIR__ . '/../views/Footer.php'); ?>
+    <?php include('./views/Footer.php'); ?>
 </body>
 
 </html>
