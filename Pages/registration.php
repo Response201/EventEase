@@ -23,7 +23,7 @@ if (isset($_POST['create'])) {
         $v->field('password')->required()->match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/");
         if ($v->is_valid()) {
             $message = auth();
-            if ($message === 'Perfekt, kolla mailet och verifiera ditt konto') {
+            if ($message == 'Perfekt, kolla mailet och verifiera ditt konto') {
                 $dbContext->getUsersDatabase()->makeConsumer($email);
             }
         } else {
