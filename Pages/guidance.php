@@ -18,10 +18,6 @@ if (isset($_POST['save'])) {
 
 }
 
-
-
-
-
 ?>
 <!DOCTYPE html>
 
@@ -80,9 +76,6 @@ if (isset($_POST['save'])) {
                 $bookings = $dbContext->allActiveBookings($teacher, $pupilId);
                 foreach ($bookings as $booking) {
                     echo generateTimeCard($booking, $_POST['selectedTeacher'] ?? 'Alla lärare');
-
-
-
 
                 }
                 ?>
